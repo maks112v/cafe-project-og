@@ -33,7 +33,11 @@ class CustomDocument extends Document {
         </body>
         <Footer>
           <small>
-            Enjoy open source? We do also check it out <a>here</a>.
+            Enjoy open source? We do also check it out{' '}
+            <a href='https://github.com/maks112v/cafe-project' target='_blank'>
+              here
+            </a>
+            .
           </small>
         </Footer>
       </Html>
