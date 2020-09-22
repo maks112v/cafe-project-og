@@ -6,6 +6,7 @@ import { useSession } from '../../hooks/auth';
 import { useStore } from '../../hooks/store';
 import { color_background, color_border } from '../../styles/colors';
 import Button from '../Button';
+import { Statuses } from '../OrderedItem/statuses';
 
 const Wrapper = styled.div({
   display: 'grid',
@@ -73,7 +74,7 @@ export default function Orders() {
               {order?.meta?.createdAt}
             </Moment>
           </Content>
-          <h5>Ordered</h5>
+          <h5>{Statuses[order?.status]}</h5>
         </Card>
       ))}
       {orders?.length > 1 &&

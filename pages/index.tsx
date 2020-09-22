@@ -10,13 +10,7 @@ import Orders from '../components/Orders';
 import Seo from '../components/Seo';
 import { useSession } from '../hooks/auth';
 import { useStore } from '../hooks/store';
-
-const Container = styled.div({
-  maxWidth: 500,
-  margin: '0 auto',
-  padding: `50px 20px`,
-  minHeight: '80vh',
-});
+import { Container } from '../styles/Container';
 
 const CardWrapper = styled.div({
   display: 'grid',
