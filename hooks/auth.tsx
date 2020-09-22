@@ -3,6 +3,7 @@ import { createContext, useContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDocument, useDocumentData } from 'react-firebase-hooks/firestore';
 import Loading from '../components/Loading';
+import Login from '../components/Login';
 
 const authContext = createContext({});
 
@@ -21,7 +22,8 @@ export const AuthWrapper = ({ children }) => {
     isLoading,
     auth,
     user,
-    isAdmin: admin?.exists,
+    fetchingAdmin,
+    isAdmin: admin?.exists || false,
   };
   console.log(value);
 
@@ -39,9 +41,14 @@ export const withLoader = (Component) => (props) => {
 };
 
 export const withAdmin = (Component) => (props) => {
-  const { isLoading, auth, isAdmin }: any = useSession();
-  if (isLoading || !isAdmin) {
+  const { isLoading, auth, fetchingAdmin, isAdmin }: any = useSession();
+  console.log(isLoading, auth, fetchingAdmin, isAdmin);
+  if (isLoading || fetchingAdmin) {
     return <Loading />;
+  }
+
+  if (!isAdmin) {
+    return <Login />;
   }
 
   return <Component {...props} />;

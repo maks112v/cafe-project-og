@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function Seo({
-  title = 'Cafe Night',
+  title = 'Cafe Project',
   titles,
   desc,
   image = 'meta.png',
