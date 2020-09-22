@@ -1,16 +1,5 @@
-import styled from '@emotion/styled';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
-import { color_coffee } from '../styles/colors';
-
-const Footer = styled.div({
-  display: 'flex',
-  justifyContent: 'center',
-  padding: `10px 20px`,
-  small: {
-    color: color_coffee,
-  },
-});
 
 class CustomDocument extends Document {
   static async getInitialProps(ctx) {
@@ -31,15 +20,6 @@ class CustomDocument extends Document {
           <Main />
           <NextScript />
         </body>
-        <Footer>
-          <small>
-            Enjoy open source? We do also check it out{' '}
-            <a href='https://github.com/maks112v/cafe-project' target='_blank'>
-              here
-            </a>
-            .
-          </small>
-        </Footer>
       </Html>
     );
   }

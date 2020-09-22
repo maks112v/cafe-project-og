@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
+import firebase from 'firebase';
 import { createContext, useContext } from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useSession } from './auth';
 
 const storeContext = createContext({});
 
@@ -52,6 +55,22 @@ const menuMethods = () => {
   return { selectableDrinks: Object.values(selectableDrinks), getDrinkbyId };
 };
 
+const OrdersMethods = () => {
+  const { auth }: any = useSession();
+
+  const [orders, loadingOrders] = useCollectionData(
+    auth &&
+      firebase
+        .firestore()
+        .collection(`orders`)
+        .where('userId', '==', auth?.uid),
+    {
+      idField: 'id',
+    }
+  );
+  return { orders, loadingOrders };
+};
+
 export interface StoreType {
   selectableDrinks: DrinkType[];
 }
@@ -65,7 +84,9 @@ interface DrinkType {
 export const StoreWrapper = ({ children }) => {
   const Menu = menuMethods();
 
-  const value = { ...Menu };
+  const Orders = OrdersMethods();
+
+  const value = { ...Menu, ...Orders };
 
   return (
     <storeContext.Provider value={value}>{children}</storeContext.Provider>

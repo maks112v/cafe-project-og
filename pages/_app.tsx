@@ -1,4 +1,5 @@
 import { css, Global } from '@emotion/core';
+import styled from '@emotion/styled';
 import '@services/firebase';
 import Router from 'next/router';
 import NProgress from 'nprogress';
@@ -13,6 +14,15 @@ import '../styles/nprogress.css';
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
+
+const Footer = styled.div({
+  display: 'flex',
+  justifyContent: 'center',
+  padding: `10px 20px`,
+  small: {
+    color: color_coffee,
+  },
+});
 
 function CustomApp({ Component, pageProps }) {
   return (
@@ -89,7 +99,17 @@ function CustomApp({ Component, pageProps }) {
             }
           `}
         />
+
         <Component {...pageProps} />
+        <Footer>
+          <small>
+            Enjoy open source? We do also check it out{' '}
+            <a href='https://github.com/maks112v/cafe-project' target='_blank'>
+              here
+            </a>
+            .
+          </small>
+        </Footer>
       </StoreWrapper>
     </AuthWrapper>
   );

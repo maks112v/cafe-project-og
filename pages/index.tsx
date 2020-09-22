@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
+import firebase from 'firebase';
 import { Form, Formik } from 'formik';
 import { useState } from 'react';
 import * as yup from 'yup';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 import OrderItem from '../components/OrderItem';
+import Orders from '../components/Orders';
 import Seo from '../components/Seo';
-import { StoreType, useStore } from '../hooks/store';
+import { useSession, withLoader } from '../hooks/auth';
+import { useStore } from '../hooks/store';
 
 const Container = styled.div({
   maxWidth: 500,
@@ -36,23 +39,65 @@ const schema = yup.object().shape({
   name: yup.string().required('Please add your name'),
 });
 
-export default function Home() {
-  const { selectableDrinks, getDrinkbyId }: StoreType = useStore();
+function Home() {
+  const { selectableDrinks, getDrinkbyId }: any = useStore();
+  const { auth, user }: any = useSession();
   const [selectedDrink, setSelectedDrink] = useState(null);
+
+  console.log(auth);
+
+  async function handleSubmit(values) {
+    try {
+      let userId;
+      if (auth) {
+        userId = auth?.uid;
+      } else {
+        const res = await firebase.auth().signInAnonymously();
+        console.log(res);
+        await firebase
+          .firestore()
+          .collection(`users`)
+          .doc(res?.user?.uid)
+          .set({ name: values?.name }, { merge: true });
+        userId = res?.user?.uid;
+      }
+      await firebase
+        .firestore()
+        .collection(`orders`)
+        .add({
+          item: getDrinkbyId(selectedDrink),
+          ...values,
+          status: 'ordered',
+          userId,
+          meta: {
+            createdAt: new Date().valueOf(),
+            updatedAt: new Date().valueOf(),
+          },
+        });
+      setSelectedDrink(null);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <>
       <Seo titles={['Order']} />
       <Container>
-        <h1>Order</h1>
+        {!selectedDrink && <Orders />}
+        <h1>New Order</h1>
         {selectedDrink ? (
-          <Formik validationSchema={schema} initialValues={{ name: '' }}>
+          <Formik
+            validationSchema={schema}
+            initialValues={{ name: user?.name || '' }}
+            onSubmit={handleSubmit}
+          >
             <StyledForm>
               <OrderItem {...getDrinkbyId(selectedDrink)} />
 
-              <InputField name='name' placeHolder='Name' />
+              <InputField autofocus name='name' placeholder='Name' />
               {/* <InputField name='name' placeHolder='Name' required /> */}
-              <Button>Place Order</Button>
+              <Button type='submit'>Place Order</Button>
               <ResetButton>
                 <a
                   onClick={() => {
@@ -77,3 +122,5 @@ export default function Home() {
     </>
   );
 }
+
+export default withLoader(Home);

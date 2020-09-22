@@ -12,7 +12,7 @@ const ItemCard = styled.div((props) => ({
   alignItems: 'center',
   border: `1px solid ${color_border}`,
   h4: {
-    marginRight: 18,
+    // marginRight: 18,
   },
 }));
 
