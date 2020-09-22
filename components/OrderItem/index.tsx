@@ -1,19 +1,20 @@
 import styled from '@emotion/styled';
-import { color_background } from '../../styles/colors';
+import { color_background, color_border } from '../../styles/colors';
 
-const ItemCard = styled.div({
+const ItemCard = styled.div((props) => ({
   backgroundColor: color_background,
   padding: 20,
   borderRadius: 10,
-  cursor: 'pointer',
+  cursor: props?.onClick && 'pointer',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  border: `1px solid ${color_border}`,
   h4: {
     marginRight: 18,
   },
-});
+}));
 
 const ItemImage = styled.img({
   width: 100,
