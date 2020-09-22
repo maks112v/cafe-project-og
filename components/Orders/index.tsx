@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import firebase from 'firebase';
-import moment from 'moment';
 import { useState } from 'react';
+import Moment from 'react-moment';
 import { useSession } from '../../hooks/auth';
 import { useStore } from '../../hooks/store';
 import { color_background, color_border } from '../../styles/colors';
@@ -69,7 +69,9 @@ export default function Orders() {
           <Image src={order?.item?.image} />
           <Content>
             <h3>{order?.item?.name}</h3>
-            <small>{moment(order?.meta?.createdAt).fromNow()}</small>
+            <Moment interval={30000} fromNow>
+              {order?.meta?.createdAt}
+            </Moment>
           </Content>
           <h5>Ordered</h5>
         </Card>
