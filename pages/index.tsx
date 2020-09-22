@@ -8,7 +8,7 @@ import InputField from '../components/InputField';
 import OrderItem from '../components/OrderItem';
 import Orders from '../components/Orders';
 import Seo from '../components/Seo';
-import { useSession, withLoader } from '../hooks/auth';
+import { useSession } from '../hooks/auth';
 import { useStore } from '../hooks/store';
 
 const Container = styled.div({
@@ -123,4 +123,4 @@ function Home() {
   );
 }
 
-export default withLoader(Home);
+export default Home;

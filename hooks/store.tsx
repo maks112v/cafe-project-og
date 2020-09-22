@@ -58,16 +58,19 @@ const menuMethods = () => {
 const OrdersMethods = () => {
   const { auth }: any = useSession();
 
-  const [orders, loadingOrders] = useCollectionData(
+  const [orders, loadingOrders, errors] = useCollectionData(
     auth &&
       firebase
         .firestore()
         .collection(`orders`)
-        .where('userId', '==', auth?.uid),
+        .where('userId', '==', auth?.uid)
+        .orderBy('meta.createdAt', 'desc'),
     {
       idField: 'id',
     }
   );
+  console.log(errors);
+
   return { orders, loadingOrders };
 };
 

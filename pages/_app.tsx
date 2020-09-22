@@ -53,6 +53,7 @@ function CustomApp({ Component, pageProps }) {
               font-size: 40px;
               font-style: italic;
               font-weight: bold;
+              margin: 50px 0 20px;
             }
             h2 {
               font-size: 32px;

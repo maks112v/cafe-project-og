@@ -12,7 +12,7 @@ export default function Seo({
   title = 'Cafe Night',
   titles,
   desc,
-  image,
+  image = 'meta.png',
 }: Props) {
   const fullTitle = titles ? `${titles?.join(' • ')} • ${title}` : title;
   const url = 'https://cafe.molodezh.com';
@@ -40,7 +40,7 @@ export default function Seo({
       {image && <meta name='twitter:image' content={image} key='tw:image' />}
       <meta name='twitter:card' content='summary_large_image' key='tw:card' />
       <meta name='viewport' content='width=device-width' />
-      <link rel='icon' href='/favicon.ico' />
+      <link rel='icon' href='/favicon.png' />
     </Head>
   );
 }
