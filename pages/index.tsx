@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import firebase from 'firebase';
 import { Form, Formik } from 'formik';
+import Router from 'next/router';
 import { useState } from 'react';
 import * as yup from 'yup';
 import Button from '../components/Button';
@@ -34,7 +35,7 @@ const schema = yup.object().shape({
 });
 
 function Home() {
-  const { selectableDrinks, getDrinkbyId }: any = useStore();
+  const { selectableDrinks, getDrinkbyId, teaFlavors }: any = useStore();
   const { auth, user }: any = useSession();
   const [selectedDrink, setSelectedDrink] = useState(null);
 
@@ -55,7 +56,7 @@ function Home() {
           .set({ name: values?.name }, { merge: true });
         userId = res?.user?.uid;
       }
-      await firebase
+      const orderRes = await firebase
         .firestore()
         .collection(`orders`)
         .add({
@@ -69,6 +70,7 @@ function Home() {
           },
         });
       setSelectedDrink(null);
+      Router.push('/orders/[id]', `/orders/${orderRes.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -80,6 +82,7 @@ function Home() {
       <Container>
         {!selectedDrink && <Orders />}
         <h1>New Order</h1>
+        <p>Click on a drink to place an order.</p>
         {selectedDrink ? (
           <Formik
             validationSchema={schema}
@@ -88,8 +91,20 @@ function Home() {
           >
             <StyledForm>
               <OrderItem {...getDrinkbyId(selectedDrink)} />
-
               <InputField autofocus name='name' placeholder='Name' />
+              {selectedDrink === 'e3yqr9fn31' && (
+                <InputField
+                  name='details.teaId'
+                  as='select'
+                  placeholder='Tea Flavor'
+                >
+                  <option>Select Tea Flavor</option>
+                  {teaFlavors?.map(({ name, id }) => (
+                    <option value={id}>{name}</option>
+                  ))}
+                </InputField>
+              )}
+              <InputField name='special' placeholder='Special Instructions' />
               {/* <InputField name='name' placeHolder='Name' required /> */}
               <Button type='submit'>Place Order</Button>
               <ResetButton>

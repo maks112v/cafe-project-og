@@ -35,6 +35,7 @@ function CustomApp({ Component, pageProps }) {
               font-size: 16px;
             }
             body {
+              box-sizing: border-box;
               margin: 0;
               padding: 0;
               font-family: Merriweather;

@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import firebase from 'firebase';
 import Moment from 'react-moment';
 import { useSession } from '../../hooks/auth';
+import { useStore } from '../../hooks/store';
 import { color_background, color_border } from '../../styles/colors';
 import { Statuses } from './statuses';
 
@@ -29,13 +30,17 @@ const Image = styled.img({
   height: 50,
 });
 
-export default function OrderedItem({ id, item, meta, name, status }) {
+export default function OrderedItem({ id, item, details, meta, name, status }) {
   const { user }: any = useSession();
+  const { getTeaFlavorbyId }: any = useStore();
   return (
     <Card status={status}>
       <Image src={item?.image} />
       <Content>
-        <h3>{item?.name}</h3>
+        <h3>
+          {item?.name}{' '}
+          {details?.teaId && `- (${getTeaFlavorbyId(details?.teaId).name})`}
+        </h3>
         <small>
           {Statuses[status]} - {name} -{' '}
           <Moment interval={1000} fromNow>

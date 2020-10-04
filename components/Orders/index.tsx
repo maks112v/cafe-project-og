@@ -1,17 +1,14 @@
 import styled from '@emotion/styled';
 import firebase from 'firebase';
+import Link from 'next/link';
 import { useState } from 'react';
 import Moment from 'react-moment';
 import { useSession } from '../../hooks/auth';
 import { useStore } from '../../hooks/store';
 import { color_background, color_border } from '../../styles/colors';
+import { ContentWrapper } from '../../styles/ContentWrapper';
 import Button from '../Button';
 import { Statuses } from '../OrderedItem/statuses';
-
-const Wrapper = styled.div({
-  display: 'grid',
-  gap: 20,
-});
 
 const Card = styled.div({
   display: 'flex',
@@ -19,6 +16,7 @@ const Card = styled.div({
   backgroundColor: color_background,
   padding: 10,
   border: `1px solid ${color_border}`,
+  cursor: 'pointer',
   borderRadius: 4,
   h5: { margin: 0 },
 });
@@ -52,31 +50,50 @@ const Avatar = styled.img({
   borderRadius: 100,
 });
 
+const CenterLink = styled.div({
+  width: '100%',
+  textAlign: 'center',
+  cursor: 'pointer',
+});
+
 export default function Orders() {
   const { auth }: any = useSession();
-  const { orders, loadingOrders }: any = useStore();
+  const { orders, loadingOrders, getTeaFlavorbyId }: any = useStore();
   const [hideUpdate, setHideUpdate] = useState(false);
 
   return (
-    <Wrapper>
+    <ContentWrapper>
       {orders?.length > 0 && (
         <TitleWrapper>
-          <h1>Orders</h1>
+          <h1>Recent Orders</h1>
           <Avatar src={auth?.providerData?.[0]?.photoURL} />
         </TitleWrapper>
       )}
-      {orders?.map((order) => (
-        <Card>
-          <Image src={order?.item?.image} />
-          <Content>
-            <h3>{order?.item?.name}</h3>
-            <Moment interval={30000} fromNow>
-              {order?.meta?.createdAt}
-            </Moment>
-          </Content>
-          <h5>{Statuses[order?.status]}</h5>
-        </Card>
+      {orders?.slice(0, 2)?.map((order) => (
+        <Link href='/orders/[id]' as={`/orders/${order?.id}`}>
+          <Card>
+            <Image src={order?.item?.image} />
+            <Content>
+              <h3>
+                {order?.item?.name}{' '}
+                {order?.details?.teaId &&
+                  `- (${getTeaFlavorbyId(order?.details?.teaId).name})`}
+              </h3>
+              <Moment interval={30000} fromNow>
+                {order?.meta?.createdAt}
+              </Moment>
+            </Content>
+            <h5>{Statuses[order?.status]}</h5>
+          </Card>
+        </Link>
       ))}
+      {orders?.length > 1 && (
+        <CenterLink>
+          <Link href='/orders'>
+            <a>View All</a>
+          </Link>
+        </CenterLink>
+      )}
       {orders?.length > 1 &&
       auth &&
       !auth?.providerData?.[0]?.providerId &&
@@ -94,6 +111,6 @@ export default function Orders() {
           Claim your Account
         </Button>
       ) : null}
-    </Wrapper>
+    </ContentWrapper>
   );
 }

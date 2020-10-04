@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import firebase from 'firebase';
-import { createContext, useContext } from 'react';
+import { createContext, FunctionComponent, useContext } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useSession } from './auth';
 
@@ -8,7 +8,7 @@ const storeContext = createContext({});
 
 export const useStore = () => useContext(storeContext);
 
-const menuMethods = () => {
+const MenuMethods = () => {
   const selectableDrinks = {
     kr29rjgsqx: {
       id: 'kr29rjgsqx',
@@ -48,11 +48,35 @@ const menuMethods = () => {
     },
   };
 
+  const teaFlavors = {
+    wk0s59hzwg: {
+      id: 'wk0s59hzwg',
+      name: 'Mint',
+    },
+    u5552y9pbq: {
+      id: 'u5552y9pbq',
+      name: 'Black',
+    },
+    w10jguil7i: {
+      id: 'w10jguil7i',
+      name: 'Green',
+    },
+  };
+
   function getDrinkbyId(id) {
     return selectableDrinks[id];
   }
 
-  return { selectableDrinks: Object.values(selectableDrinks), getDrinkbyId };
+  function getTeaFlavorbyId(id) {
+    return teaFlavors[id];
+  }
+
+  return {
+    selectableDrinks: Object.values(selectableDrinks),
+    getDrinkbyId,
+    teaFlavors: Object.values(teaFlavors),
+    getTeaFlavorbyId,
+  };
 };
 
 const OrdersMethods = () => {
@@ -69,13 +93,15 @@ const OrdersMethods = () => {
       idField: 'id',
     }
   );
-  console.log(errors);
 
   return { orders, loadingOrders };
 };
 
 export interface StoreType {
   selectableDrinks: DrinkType[];
+  getDrinkbyId(id: string): DrinkType;
+  teaFlavors: TeaFlavorType[];
+  getTeaFlavorbyId(id: string): TeaFlavorType;
 }
 
 interface DrinkType {
@@ -84,12 +110,17 @@ interface DrinkType {
   image?: string;
 }
 
-export const StoreWrapper = ({ children }) => {
-  const Menu = menuMethods();
+interface TeaFlavorType {
+  id: string;
+  name: string;
+}
+
+export const StoreWrapper: FunctionComponent = ({ children }) => {
+  const Menu = MenuMethods();
 
   const Orders = OrdersMethods();
 
-  const value = { ...Menu, ...Orders };
+  const value: StoreType = { ...Menu, ...Orders };
 
   return (
     <storeContext.Provider value={value}>{children}</storeContext.Provider>
