@@ -57,7 +57,7 @@ const OrderDetails: FunctionComponent = () => {
             Your gift will help us <b>cover the evening</b> as well as{' '}
             <b>support our youth</b>.
           </p>
-          <Button href='https://cash.app/$molodezh' target='_blank'>
+          <Button href='https://cash.app/$maks112v' target='_blank'>
             Cash App
           </Button>
         </DonateCard>
