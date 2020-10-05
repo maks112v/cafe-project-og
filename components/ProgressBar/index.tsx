@@ -40,6 +40,10 @@ const states = {
     name: 'Ordered',
     value: 20,
   },
+  inProgress: {
+    name: 'In Progress',
+    value: 60,
+  },
   complete: {
     name: 'Complete',
     value: 100,

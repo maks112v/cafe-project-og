@@ -66,6 +66,7 @@ const OrderDetails: FunctionComponent = () => {
           <ProgressBar data={data} />
           <p>Name: {data?.name}</p>
           <p>Status: {Statuses[data?.status]}</p>
+          {data?.special && <p>Special: {data?.special}</p>}
           <p>
             Created:{' '}
             <Moment interval={30000} fromNow>
