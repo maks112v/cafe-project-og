@@ -66,9 +66,9 @@ export default function OrderedItem({
             onClick={() => {
               firebase.firestore().collection(`orders`).doc(id).update({
                 'meta.updatedAt': new Date().valueOf(),
-                'meta.completedAt': new Date().valueOf(),
+                'meta.inProgress': new Date().valueOf(),
                 status: 'inProgress',
-                completedBy: user,
+                inProgressBy: user,
               });
             }}
           >
