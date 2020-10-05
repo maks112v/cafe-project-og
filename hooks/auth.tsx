@@ -62,7 +62,6 @@ export const withAuth = (Component) => (props) => {
 
 export const withAdmin = (Component) => (props) => {
   const { isLoading, auth, fetchingAdmin, isAdmin }: any = useSession();
-  console.log(isLoading, auth, fetchingAdmin, isAdmin);
   if (isLoading || fetchingAdmin) {
     return <Loading />;
   }

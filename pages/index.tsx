@@ -39,8 +39,6 @@ function Home() {
   const { auth, user }: any = useSession();
   const [selectedDrink, setSelectedDrink] = useState(null);
 
-  console.log(auth);
-
   async function handleSubmit(values) {
     try {
       let userId;
@@ -48,7 +46,6 @@ function Home() {
         userId = auth?.uid;
       } else {
         const res = await firebase.auth().signInAnonymously();
-        console.log(res);
         await firebase
           .firestore()
           .collection(`users`)
@@ -99,8 +96,10 @@ function Home() {
                   placeholder='Tea Flavor'
                 >
                   <option>Select Tea Flavor</option>
-                  {teaFlavors?.map(({ name, id }) => (
-                    <option value={id}>{name}</option>
+                  {teaFlavors?.map(({ name, id, details }) => (
+                    <option value={id}>
+                      {name} - {details}
+                    </option>
                   ))}
                 </InputField>
               )}

@@ -51,15 +51,18 @@ const MenuMethods = () => {
   const teaFlavors = {
     wk0s59hzwg: {
       id: 'wk0s59hzwg',
-      name: 'Mint',
+      name: 'Refresh Mint',
+      details: 'Herbal',
     },
     u5552y9pbq: {
       id: 'u5552y9pbq',
-      name: 'Black',
+      name: 'Awake English Breakfast',
+      details: 'Black',
     },
     w10jguil7i: {
       id: 'w10jguil7i',
-      name: 'Green',
+      name: 'Zen',
+      details: 'Green',
     },
   };
 

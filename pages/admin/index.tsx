@@ -60,7 +60,6 @@ function AdminIndex() {
       idField: 'id',
     }
   );
-  console.log(allOrders, loadingOrders, error);
 
   return (
     <>

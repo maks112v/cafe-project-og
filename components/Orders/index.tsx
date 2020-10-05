@@ -77,7 +77,9 @@ export default function Orders() {
               <h3>
                 {order?.item?.name}{' '}
                 {order?.details?.teaId &&
-                  `- (${getTeaFlavorbyId(order?.details?.teaId).name})`}
+                  `- (${
+                    getTeaFlavorbyId(order?.details?.teaId)?.name || 'Any'
+                  })`}
               </h3>
               <Moment interval={30000} fromNow>
                 {order?.meta?.createdAt}

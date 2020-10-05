@@ -53,10 +53,7 @@ export default function OrderedItem({
       <CardContent>
         <Image src={item?.image} />
         <Content>
-          <h3>
-            {item?.name}{' '}
-            {details?.teaId && `- (${getTeaFlavorbyId(details?.teaId).name})`}
-          </h3>
+          <h3>{item?.name} </h3>
           <small>
             {Statuses[status]} - {name} -{' '}
             <Moment interval={1000} fromNow>
@@ -95,6 +92,9 @@ export default function OrderedItem({
       <p>
         Name: <b>{name}</b>
       </p>
+      {details?.teaId && (
+        <p>Tea Flavor: {getTeaFlavorbyId(details?.teaId)?.name || 'Any'}</p>
+      )}
       {special && <p>Special: {special}</p>}
     </Card>
   );
