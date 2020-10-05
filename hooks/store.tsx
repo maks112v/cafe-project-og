@@ -12,7 +12,7 @@ const MenuMethods = () => {
   const selectableDrinks = {
     kr29rjgsqx: {
       id: 'kr29rjgsqx',
-      name: 'Expresso',
+      name: 'Espresso',
       image: '/items/expresso.svg',
     },
     borwbinnx5: {

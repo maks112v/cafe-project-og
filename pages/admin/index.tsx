@@ -65,7 +65,7 @@ function AdminIndex() {
     <>
       <Seo titles={['Orders', 'Admin']} />
       <Container>
-        <h3>Order Queue</h3>
+        <h3>Order Queue - {allOrders?.length}</h3>
         <CardWrapper>
           {allOrders?.length > 0 ? (
             allOrders?.map((order) => <OrderedItem {...order} />)
@@ -77,7 +77,7 @@ function AdminIndex() {
             </div>
           )}
         </CardWrapper>
-        <h3>Complete Orders</h3>
+        <h3>Complete Orders - {completeOrders?.length}</h3>
         <CardWrapper>
           {completeOrders?.length > 0 ? (
             completeOrders?.map((order) => <OrderedItem {...order} />)

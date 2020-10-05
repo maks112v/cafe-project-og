@@ -7,13 +7,12 @@ import { color_background, color_border } from '../../styles/colors';
 import { Statuses } from './statuses';
 
 const Card = styled.div((props) => ({
-  display: 'flex',
-  flexDirection: 'column',
+  display: 'grid',
   backgroundColor: color_background,
   padding: 10,
   border: `1px solid ${color_border}`,
   borderRadius: 4,
-  gap: 10,
+  gap: 15,
   p: { margin: 0 },
   h5: { margin: 0 },
   h4: { margin: 0 },
@@ -45,6 +44,8 @@ export default function OrderedItem({
   meta,
   name,
   status,
+  inProgressBy,
+  completedBy,
 }) {
   const { user }: any = useSession();
   const { getTeaFlavorbyId }: any = useStore();
@@ -55,7 +56,7 @@ export default function OrderedItem({
         <Content>
           <h3>{item?.name} </h3>
           <small>
-            {Statuses[status]} - {name} -{' '}
+            {Statuses[status]} -{' '}
             <Moment interval={1000} fromNow>
               {meta?.createdAt}
             </Moment>{' '}
@@ -96,6 +97,28 @@ export default function OrderedItem({
         <p>Tea Flavor: {getTeaFlavorbyId(details?.teaId)?.name || 'Any'}</p>
       )}
       {special && <p>Special: {special}</p>}
+      {inProgressBy?.name && !completedBy ? (
+        <>
+          <p>In Progress By: {inProgressBy?.name}</p>
+          <h2>
+            In Progress Time:
+            <Moment interval={1000} fromNow>
+              {meta?.inProgress}
+            </Moment>
+          </h2>
+        </>
+      ) : null}
+      {completedBy?.name && (
+        <>
+          <p>Completed By: {completedBy?.name}</p>
+          <p>
+            Completed{' '}
+            <Moment interval={1000} from={meta?.inProgress}>
+              {meta?.completedAt}
+            </Moment>
+          </p>
+        </>
+      )}
     </Card>
   );
 }
