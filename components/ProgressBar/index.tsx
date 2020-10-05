@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { FunctionComponent } from 'react';
-import { color_coffee, color_expresso, color_milk } from '../../styles/colors';
+import { color_coffee, color_milk } from '../../styles/colors';
 
 interface Props {
   data: any;
@@ -14,7 +14,7 @@ const PercentageBar = styled.div({
   height: 25,
   width: '100%',
   flexGrow: 1,
-  backgroundColor: color_expresso,
+  backgroundColor: `${color_coffee}33`,
   position: 'relative',
   borderRadius: 10,
   overflow: 'hidden',

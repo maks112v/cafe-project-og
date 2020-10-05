@@ -7,4 +7,7 @@ import 'firebase/functions';
 
 if (!firebase.apps.length) {
   firebase.initializeApp(process.env.firebase);
+  if (typeof window !== 'undefined') {
+    window.analytics = firebase.analytics();
+  }
 }

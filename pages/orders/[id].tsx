@@ -48,7 +48,7 @@ const OrderDetails: FunctionComponent = () => {
 
   return (
     <Container>
-      <Seo titles={['Orders']} />
+      <Seo titles={[getDrinkbyId(data?.item?.id).name, 'Order']} />
       <h1>Order Details</h1>
       <ContentWrapper>
         <DonateCard>
