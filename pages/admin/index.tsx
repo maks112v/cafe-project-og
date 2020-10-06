@@ -54,8 +54,7 @@ function AdminIndex() {
       .firestore()
       .collection(`orders`)
       .where('status', '==', 'complete')
-      .orderBy('meta.createdAt', 'desc')
-      .limit(20),
+      .orderBy('meta.createdAt', 'desc'),
     {
       idField: 'id',
     }

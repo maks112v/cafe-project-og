@@ -100,12 +100,12 @@ export default function OrderedItem({
       {inProgressBy?.name && !completedBy ? (
         <>
           <p>In Progress By: {inProgressBy?.name}</p>
-          <h2>
+          <p>
             In Progress Time:
             <Moment interval={1000} fromNow>
               {meta?.inProgress}
             </Moment>
-          </h2>
+          </p>
         </>
       ) : null}
       {completedBy?.name && (

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { color_background, color_border } from '../../styles/colors';
+import { color_border, color_card_background } from '../../styles/colors';
 
 const ItemCard = styled.div((props) => ({
-  backgroundColor: color_background,
+  backgroundColor: color_card_background,
   padding: `30px 20px`,
   borderRadius: 10,
   cursor: props?.onClick && 'pointer',
