@@ -121,9 +121,14 @@ function Home() {
           </Formik>
         ) : (
           <CardWrapper>
-            {selectableDrinks.map((data) => (
-              <OrderItem {...data} onClick={() => setSelectedDrink(data?.id)} />
-            ))}
+            {selectableDrinks
+              ?.filter((data) => data?.available)
+              ?.map((data) => (
+                <OrderItem
+                  {...data}
+                  onClick={() => setSelectedDrink(data?.id)}
+                />
+              ))}
           </CardWrapper>
         )}
       </Container>

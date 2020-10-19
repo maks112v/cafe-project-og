@@ -13,37 +13,49 @@ const MenuMethods = () => {
     kr29rjgsqx: {
       id: 'kr29rjgsqx',
       name: 'Espresso',
+      available: true,
       image: '/items/expresso.svg',
     },
     borwbinnx5: {
       id: 'borwbinnx5',
       name: 'Cortado',
+      available: true,
       image: '/items/cortado.svg',
     },
     pv6zms5cyy: {
       id: 'pv6zms5cyy',
       name: 'Americano',
+      available: true,
       image: '/items/americano.svg',
     },
     aohv0owt7h: {
       id: 'aohv0owt7h',
       name: 'Latte',
+      available: true,
       image: '/items/latte.svg',
     },
     fq6my5ts27: {
       id: 'fq6my5ts27',
       name: 'Iced Latte',
+      available: true,
       image: '/items/iced-latte.svg',
     },
     q5xv91wql3: {
       id: 'q5xv91wql3',
       name: 'Cold Brew',
+      available: false,
       image: '/items/cold-brew.svg',
     },
-    e3yqr9fn31: { id: 'e3yqr9fn31', name: 'Tea', image: '/items/tea.svg' },
+    e3yqr9fn31: {
+      id: 'e3yqr9fn31',
+      name: 'Tea',
+      available: true,
+      image: '/items/tea.svg',
+    },
     piuy88zw7n: {
       id: 'piuy88zw7n',
       name: 'AeroPress',
+      available: true,
       image: '/items/aeropress.svg',
     },
   };
