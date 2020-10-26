@@ -58,6 +58,12 @@ const MenuMethods = () => {
       available: true,
       image: '/items/aeropress.svg',
     },
+    cy1zgxn96m: {
+      id: 'cy1zgxn96m',
+      name: 'Hot Chocolate',
+      available: true,
+      image: '/items/hot-coco.svg',
+    },
   };
 
   const teaFlavors = {
