@@ -48,7 +48,7 @@ export default function OrderedItem({
   completedBy,
 }) {
   const { user }: any = useSession();
-  const { getTeaFlavorbyId }: any = useStore();
+  const { getTeaFlavorbyId, getSyrupFlavorsbyId, getSyrupAmountbyId }: any = useStore();
   return (
     <Card status={status}>
       <CardContent>
@@ -95,6 +95,12 @@ export default function OrderedItem({
       </p>
       {details?.teaId && (
         <p>Tea Flavor: {getTeaFlavorbyId(details?.teaId)?.name || 'Any'}</p>
+      )}
+      {details?.syrupId && (
+        <p>Flavor: {getSyrupFlavorsbyId(details?.syrupId)?.name || 'Any'}</p>
+      )}
+      {details?.syrupAmount && (
+        <p>{getSyrupAmountbyId(details?.syrupAmount)?.amount || 'Any'} Pump</p>
       )}
       {special && <p>Special: {special}</p>}
       {inProgressBy?.name && !completedBy ? (
