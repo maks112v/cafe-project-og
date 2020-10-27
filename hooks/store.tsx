@@ -15,7 +15,6 @@ const MenuMethods = () => {
       name: 'Espresso',
       image: '/items/expresso.svg',
       available: true,
-
       description:
         'A strong, concentrated coffee made by forcing pressurized water through finely ground coffee beans. Meant to be taken like a shot.',
     },
@@ -24,7 +23,6 @@ const MenuMethods = () => {
       name: 'Cortado',
       image: '/items/cortado.svg',
       available: true,
-
       description:
         'A double shot espresso with a drizzle of warm milk to soften the taste and reduce the degree of bitterness of the coffee.',
     },
@@ -33,7 +31,6 @@ const MenuMethods = () => {
       name: 'Americano',
       image: '/items/americano.svg',
       available: true,
-
       description:
         'A double shot of espresso added to a cup of hot water. Many like to drink this as they would a regular brewed coffee with milk and sugar.',
     },
@@ -42,7 +39,6 @@ const MenuMethods = () => {
       name: 'Latte',
       image: '/items/latte.svg',
       available: true,
-
       description:
         'A single shot of espresso with three parts steamed milk. It is usually bigger than a cappuccino because it contains more milk and can be ordered with flavoring.',
     },
@@ -51,15 +47,13 @@ const MenuMethods = () => {
       name: 'Iced Latte',
       image: '/items/iced-latte.svg',
       available: true,
-
       description: 'Double shot espresso with milk served over ice.',
     },
     q5xv91wql3: {
       id: 'q5xv91wql3',
       name: 'Cold Brew',
       image: '/items/cold-brew.svg',
-      available: true,
-
+      available: false,
       description:
         'Cold brew is brewed by soaking coffee beans cold or room-temperature water for 12 hours minimum to extract sugars, oils and caffeine.',
     },
@@ -68,7 +62,6 @@ const MenuMethods = () => {
       name: 'Tea',
       image: '/items/tea.svg',
       available: true,
-
       description: 'It really is a serious problem if tea can’t fix it.',
     },
     piuy88zw7n: {
@@ -76,7 +69,6 @@ const MenuMethods = () => {
       name: 'AeroPress',
       image: '/items/aeropress.svg',
       available: true,
-
       description:
         'Put coffee and water in, give it a stir, let it sit for 60-80s then press it out into your cup through the paper filter.',
     },
