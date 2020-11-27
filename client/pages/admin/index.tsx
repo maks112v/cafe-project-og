@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import firebase from 'firebase';
+import moment from 'moment';
+import { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import Loading from '../../components/Loading';
 import OrderedItem from '../../components/OrderedItem';
@@ -37,6 +39,14 @@ const Image = styled.img({
 });
 
 function AdminIndex() {
+  const [query, setQuery] = useState(
+    firebase
+      .firestore()
+      .collection(`orders`)
+      .where('status', '==', 'complete')
+      .orderBy('meta.createdAt', 'desc')
+      .where('meta.createdAt', '>', moment().startOf('day').valueOf())
+  );
   const [allOrders, loadingOrders] = useCollectionData(
     firebase
       .firestore()
@@ -50,11 +60,7 @@ function AdminIndex() {
   );
 
   const [completeOrders, loadingCompleteOrders, error] = useCollectionData(
-    firebase
-      .firestore()
-      .collection(`orders`)
-      .where('status', '==', 'complete')
-      .orderBy('meta.createdAt', 'desc'),
+    query,
     {
       idField: 'id',
     }
@@ -64,10 +70,59 @@ function AdminIndex() {
     <>
       <Seo titles={['Orders', 'Admin']} />
       <Container>
+        <select
+          onChange={(e) => {
+            console.log(e.target.value);
+            const newFilter = e.target.value;
+            if (newFilter === 'today') {
+              setQuery(
+                firebase
+                  .firestore()
+                  .collection(`orders`)
+                  .where('status', '==', 'complete')
+                  .orderBy('meta.createdAt', 'desc')
+                  .where(
+                    'meta.createdAt',
+                    '>',
+                    moment().startOf('day').valueOf()
+                  )
+              );
+            }
+            if (newFilter === 'month') {
+              setQuery(
+                firebase
+                  .firestore()
+                  .collection(`orders`)
+                  .where('status', '==', 'complete')
+                  .orderBy('meta.createdAt', 'desc')
+                  .where(
+                    'meta.createdAt',
+                    '>',
+                    moment().startOf('month').valueOf()
+                  )
+              );
+            }
+            if (newFilter === 'all') {
+              setQuery(
+                firebase
+                  .firestore()
+                  .collection(`orders`)
+                  .where('status', '==', 'complete')
+                  .orderBy('meta.createdAt', 'desc')
+              );
+            }
+          }}
+        >
+          <option value='today'>Today</option>
+          <option value='month'>Month</option>
+          <option value='all'>All</option>
+        </select>
         <h3>Order Queue - {allOrders?.length}</h3>
         <CardWrapper>
           {allOrders?.length > 0 ? (
-            allOrders?.map((order) => <OrderedItem {...order} />)
+            allOrders?.map((order) => (
+              <OrderedItem key={order?.id} {...order} />
+            ))
           ) : loadingOrders ? (
             <Loading />
           ) : (
@@ -79,7 +134,9 @@ function AdminIndex() {
         <h3>Complete Orders - {completeOrders?.length}</h3>
         <CardWrapper>
           {completeOrders?.length > 0 ? (
-            completeOrders?.map((order) => <OrderedItem {...order} />)
+            completeOrders?.map((order) => (
+              <OrderedItem key={order?.id} {...order} />
+            ))
           ) : loadingOrders ? (
             <Loading />
           ) : (

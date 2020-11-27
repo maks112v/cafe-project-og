@@ -48,7 +48,12 @@ export default function OrderedItem({
   completedBy,
 }) {
   const { user }: any = useSession();
-  const { getTeaFlavorbyId, getSyrupFlavorsbyId, getSyrupAmountbyId }: any = useStore();
+  console.log(user);
+  const {
+    getTeaFlavorbyId,
+    getSyrupFlavorsbyId,
+    getSyrupAmountbyId,
+  }: any = useStore();
   return (
     <Card status={status}>
       <CardContent>
@@ -64,8 +69,8 @@ export default function OrderedItem({
         </Content>
         {status === 'complete' ? null : status === 'ordered' ? (
           <a
-            onClick={() => {
-              firebase.firestore().collection(`orders`).doc(id).update({
+            onClick={async () => {
+              await firebase.firestore().collection(`orders`).doc(id).update({
                 'meta.updatedAt': new Date().valueOf(),
                 'meta.inProgress': new Date().valueOf(),
                 status: 'inProgress',
@@ -77,8 +82,8 @@ export default function OrderedItem({
           </a>
         ) : (
           <a
-            onClick={() => {
-              firebase.firestore().collection(`orders`).doc(id).update({
+            onClick={async () => {
+              await firebase.firestore().collection(`orders`).doc(id).update({
                 'meta.updatedAt': new Date().valueOf(),
                 'meta.completedAt': new Date().valueOf(),
                 status: 'complete',

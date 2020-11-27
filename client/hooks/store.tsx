@@ -66,11 +66,9 @@ const MenuMethods = () => {
     },
     piuy88zw7n: {
       id: 'piuy88zw7n',
-      name: 'AeroPress',
+      name: 'Drip Coffee',
       image: '/items/aeropress.svg',
       available: true,
-      description:
-        'Put coffee and water in, give it a stir, let it sit for 60-80s then press it out into your cup through the paper filter.',
     },
     cy1zgxn96m: {
       id: 'cy1zgxn96m',
