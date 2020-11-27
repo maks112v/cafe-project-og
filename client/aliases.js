@@ -7,6 +7,7 @@ const relativeAliases = [
   ['@enums', './enums/'],
   ['@types', './types/'],
   ['@public', './public/'],
+  ['@styles', './styles/'],
   ['@services', './services/'],
 ];
 

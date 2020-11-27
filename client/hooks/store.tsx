@@ -1,10 +1,21 @@
 /* eslint-disable no-unused-vars */
 import firebase from 'firebase';
-import { createContext, FunctionComponent, useContext } from 'react';
+import { Context, createContext, FunctionComponent, useContext } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useSession } from './auth';
 
-const storeContext = createContext({});
+export interface StoreType {
+  selectableDrinks?: DrinkType[];
+  getDrinkbyId(id: string): DrinkType;
+  teaFlavors?: TeaFlavorType[];
+  getTeaFlavorbyId(id: string): TeaFlavorType;
+  syrupFlavors?: SyrupFlavorType[];
+  getSyrupFlavorsbyId(id: string): SyrupFlavorType;
+  syrupAmount?: SyrupAmountType[];
+  getSyrupAmountbyId(id: string): SyrupAmountType;
+}
+
+const storeContext: Context<StoreType> = createContext(null);
 
 export const useStore = () => useContext(storeContext);
 
@@ -176,21 +187,11 @@ const OrdersMethods = () => {
   return { orders, loadingOrders };
 };
 
-export interface StoreType {
-  selectableDrinks: DrinkType[];
-  getDrinkbyId(id: string): DrinkType;
-  teaFlavors: TeaFlavorType[];
-  getTeaFlavorbyId(id: string): TeaFlavorType;
-  syrupFlavors: SyrupFlavorType[];
-  getSyrupFlavorsbyId(id: string): SyrupFlavorType;
-  syrupAmount: SyrupAmountType[];
-  getSyrupAmountbyId(id: string): SyrupAmountType;
-}
-
 interface DrinkType {
   id: string;
   name: string;
   image?: string;
+  available: boolean;
 }
 
 interface TeaFlavorType {

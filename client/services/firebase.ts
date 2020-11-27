@@ -9,7 +9,7 @@ import 'firebase/functions';
 if (!firebase.apps.length) {
   firebase.initializeApp(process.env.firebase);
 
-  if (typeof window !== 'undefined' && location.hostname === 'localhost') {
+  if (process.env.NODE_ENV === 'development') {
     firebase.auth().useEmulator('http://localhost:9099/');
     firebase.database().useEmulator('localhost', 9000);
     firebase.firestore().useEmulator('localhost', 8080);

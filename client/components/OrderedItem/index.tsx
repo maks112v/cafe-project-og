@@ -44,6 +44,7 @@ export default function OrderedItem({
   meta,
   name,
   status,
+  phone,
   inProgressBy,
   completedBy,
 }) {
@@ -89,6 +90,18 @@ export default function OrderedItem({
                 status: 'complete',
                 completedBy: user,
               });
+              if (phone) {
+                await firebase
+                  .firestore()
+                  .collection(`notifs`)
+                  .add({
+                    'meta.updatedAt': new Date().valueOf(),
+                    'meta.completedAt': new Date().valueOf(),
+                    item,
+                    phone,
+                    orderRef: firebase.firestore().collection(`orders`).doc(id),
+                  });
+              }
             }}
           >
             Mark Complete

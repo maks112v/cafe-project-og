@@ -11,3 +11,24 @@ const twilio = require('twilio')(
 //   functions.logger.info("Hello logs!", {structuredData: true});
 //   response.send("Hello from Firebase!");
 // });
+
+exports.notify = functions.firestore
+  .document('notifs/{id}')
+  .onCreate(async (snap, context) => {
+    // ... Your code here
+
+    const data = snap.data();
+
+    console.log(data);
+
+    if (data.phone) {
+      const res = await twilio.messages.create({
+        body: `Your ${data.item.name} is ready! 🎉 Come pick it up.`,
+        from: '+15402080061',
+        to: `+1${data.phone}`,
+      });
+      await snap.ref.update({
+        msid: res.sid,
+      });
+    }
+  });

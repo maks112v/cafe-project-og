@@ -1,24 +1,27 @@
 import firebase from 'firebase';
-import { createContext, FunctionComponent, useContext } from 'react';
+import { Context, createContext, FunctionComponent, useContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDocument, useDocumentData } from 'react-firebase-hooks/firestore';
 import Loading from '../components/Loading';
 import Login from '../components/Login';
+import Seo from '../components/Seo';
+import { Container } from '../styles/Container';
 
-const authContext = createContext({});
+interface AuthType {
+  isLoading?: Boolean;
+  auth?: any;
+  user?: any;
+  fetchingAdmin?: Boolean;
+  isAdmin?: Boolean;
+}
+
+const authContext: Context<AuthType> = createContext({});
 
 export const useSession = () => useContext(authContext);
 
-interface AuthType {
-  isLoading: Boolean;
-  auth: any;
-  user: any;
-  fetchingAdmin: Boolean;
-  isAdmin: Boolean;
-}
-
 export const AuthWrapper: FunctionComponent = ({ children }) => {
   const [auth, isLoading, error] = useAuthState(firebase.auth());
+  console.log(auth);
   const [user, fetchingUser, userError]: [any, Boolean, any] = useDocumentData(
     auth && firebase.firestore().collection('users').doc(auth.uid)
   );
@@ -27,7 +30,7 @@ export const AuthWrapper: FunctionComponent = ({ children }) => {
   );
 
   const value: AuthType = {
-    isLoading,
+    isLoading: isLoading || fetchingUser,
     auth,
     user,
     fetchingAdmin,
@@ -54,7 +57,8 @@ export const withAuth = (Component) => (props) => {
   }
 
   if (!auth) {
-    return <Login />;
+    firebase.auth().signInAnonymously();
+    return <Loading />;
   }
 
   return <Component {...props} />;
@@ -66,8 +70,22 @@ export const withAdmin = (Component) => (props) => {
     return <Loading />;
   }
 
-  if (!isAdmin) {
+  if (!auth) {
     return <Login />;
+  }
+
+  if (!isAdmin) {
+    return (
+      <>
+        <Seo titles={['Forbidden', 'Admin']} />
+        <Container>
+          <div>
+            <h3>403 Forbidden</h3>
+            <p>It looks like you are not allowed.</p>
+          </div>
+        </Container>
+      </>
+    );
   }
 
   return <Component {...props} />;
