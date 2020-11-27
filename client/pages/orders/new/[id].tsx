@@ -1,5 +1,5 @@
 import Button from '@components/Button';
-import InputField from '@components/InputField';
+import InputField, { InputMasked } from '@components/InputField';
 import OrderItem from '@components/OrderItem';
 import Seo from '@components/Seo';
 import styled from '@emotion/styled';
@@ -26,6 +26,7 @@ const ResetButton = styled.div({
 
 const schema = yup.object().shape({
   name: yup.string().required('Please add your name'),
+  phone: yup.number('Not a valid phone number'),
 });
 
 const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
@@ -92,12 +93,12 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
         >
           <StyledForm>
             <OrderItem {...doc} />
-            <InputField autofocus name='name' placeholder='Name' />
-            <InputField
+            <InputField autofocus name='name' placeholder='Name' required />
+            <InputMasked
               autofocus
               name='phone'
               placeholder='Phone'
-              type='phone'
+              // type='number'
             />
             {id === 'e3yqr9fn31' && (
               <InputField
@@ -142,7 +143,6 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
               name='special'
               placeholder='Special requests or a good joke.'
             />
-            <InputField name='name' placeHolder='Name' required />
             <Button type='submit'>Place Order</Button>
             <ResetButton>
               <Link href='/'>

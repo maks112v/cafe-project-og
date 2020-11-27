@@ -21,8 +21,10 @@
     "react-animated-progress-bar": "^1.0.4",
     "react-dom": "17.0.1",
     "react-firebase-hooks": "^2.2.0",
+    "react-input-mask": "^3.0.0-alpha.2",
     "react-moment": "^1.0.0",
-    "yup": "^0.31.0"
+    "yup": "^0.31.0",
+    "yup-phone": "^1.2.15"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
