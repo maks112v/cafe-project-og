@@ -1,13 +1,13 @@
-import styled from "@emotion/styled";
-import { color_background, color_border } from "./colors";
+import styled from '@emotion/styled';
+import { color_background, color_border } from './colors';
 
 export const Card = styled.div({
-  display: "flex",
-  alignItems: "center",
+  display: 'flex',
+  alignItems: 'center',
   backgroundColor: color_background,
-  padding: 10,
+  padding: 20,
   border: `1px solid ${color_border}`,
-  cursor: "pointer",
+  cursor: 'pointer',
   borderRadius: 4,
   h3: { margin: 0 },
   p: { margin: 0 },

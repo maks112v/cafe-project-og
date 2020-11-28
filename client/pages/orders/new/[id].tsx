@@ -85,12 +85,7 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
           <StyledForm>
             <OrderItem {...doc} />
             <InputField autofocus name='name' placeholder='Name' required />
-            <InputMasked
-              autofocus
-              name='phone'
-              placeholder='Phone'
-              // type='number'
-            />
+            <InputMasked autofocus name='phone' placeholder='Phone' />
             {id === 'e3yqr9fn31' && (
               <InputField
                 name='details.teaId'

@@ -28,7 +28,7 @@ function Home({ items }) {
           {selectableDrinks
             ?.filter((data) => data?.available)
             ?.map((data) => (
-              <Link href={`/orders/new/${data?.id}`}>
+              <Link key={data?.id} href={`/orders/new/${data?.id}`}>
                 <OrderItem
                   {...data}
 

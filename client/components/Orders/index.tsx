@@ -70,7 +70,7 @@ export default function Orders() {
         </TitleWrapper>
       )}
       {orders?.slice(0, 2)?.map((order) => (
-        <Link href='/orders/[id]' as={`/orders/${order?.id}`}>
+        <Link key={order?.id} href='/orders/[id]' as={`/orders/${order?.id}`}>
           <Card>
             <Image src={order?.item?.image} />
             <Content>

@@ -9,10 +9,6 @@ service cloud.firestore {
     	allow read, write: if request.auth.uid == uid;
     }
 
-    match /items/{id} {
-      allow read: if true;
-    } 
-
     match /orders/{document} {
     	allow create: if request.auth.uid == request.resource.data.userId;
       allow read, update: if request.auth.uid == resource.data.userId;
