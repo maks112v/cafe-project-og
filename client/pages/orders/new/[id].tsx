@@ -47,18 +47,10 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
 
   async function handleSubmit(values) {
     try {
-      let userId;
-      if (auth) {
-        userId = auth?.uid;
-      } else {
-        const res = await firebase.auth().signInAnonymously();
-
-        userId = res?.user?.uid;
-      }
       await firebase
         .firestore()
         .collection(`users`)
-        .doc(userId)
+        .doc(auth?.uid)
         .set({ name: values?.name, phone: values?.phone }, { merge: true });
       const orderRes = await firebase
         .firestore()
@@ -67,7 +59,7 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
           item: doc,
           ...values,
           status: 'ordered',
-          userId,
+          userId: auth?.uid,
           meta: {
             createdAt: new Date().valueOf(),
             updatedAt: new Date().valueOf(),
@@ -87,7 +79,7 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
         <p>Click on a drink to place an order.</p>
         <Formik
           validationSchema={schema}
-          initialValues={{ name: user?.name, phone: user?.phone }}
+          initialValues={{ name: user?.name || '', phone: user?.phone || '' }}
           onSubmit={handleSubmit}
         >
           <StyledForm>
