@@ -49,7 +49,6 @@ export default function OrderedItem({
   completedBy,
 }) {
   const { user }: any = useSession();
-  console.log(user);
   const {
     getTeaFlavorbyId,
     getSyrupFlavorsbyId,

@@ -43,8 +43,6 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
   }: any = useStore();
   const { auth, user }: any = useSession();
 
-  console.log(user);
-
   const doc = getDrinkbyId(id);
 
   async function handleSubmit(values) {

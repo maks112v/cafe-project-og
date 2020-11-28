@@ -21,7 +21,6 @@ export const useSession = () => useContext(authContext);
 
 export const AuthWrapper: FunctionComponent = ({ children }) => {
   const [auth, isLoading, error] = useAuthState(firebase.auth());
-  console.log(auth);
   const [user, fetchingUser, userError]: [any, Boolean, any] = useDocumentData(
     auth && firebase.firestore().collection('users').doc(auth.uid)
   );

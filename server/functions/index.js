@@ -19,8 +19,6 @@ exports.notify = functions.firestore
 
     const data = snap.data();
 
-    console.log(data);
-
     if (data.phone) {
       const res = await twilio.messages.create({
         body: `Your ${data.item.name} is ready! 🎉 Come pick it up.`,

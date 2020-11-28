@@ -61,16 +61,18 @@ export default function InputField({ ...rest }) {
 }
 
 export function InputMasked({ ...rest }) {
-  console.log('rest', rest);
   const formik = useFormikContext();
   return (
     <InputWrapper {...rest}>
-      <Field
-        mask='(999) 999-9999'
+      <StyledMask
         value={formik?.values[rest.name]}
-        onChange={formik.handleChange}
+        onChange={(e) => {
+          const target = e.target;
+          const value = target.value.replace(/[^0-9]/gi, '');
+          formik.setFieldValue(rest?.name, value);
+        }}
+        mask='(999) 999-9999'
         {...rest}
-        component={StyledMask}
       />
       <StyledErrorMessage className='sm'>
         <ErrorMessage name={rest?.name} />
