@@ -52,13 +52,14 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
         userId = auth?.uid;
       } else {
         const res = await firebase.auth().signInAnonymously();
-        await firebase
-          .firestore()
-          .collection(`users`)
-          .doc(res?.user?.uid)
-          .set({ name: values?.name }, { merge: true });
+
         userId = res?.user?.uid;
       }
+      await firebase
+        .firestore()
+        .collection(`users`)
+        .doc(userId)
+        .set({ name: values?.name, phone: values?.phone }, { merge: true });
       const orderRes = await firebase
         .firestore()
         .collection(`orders`)
