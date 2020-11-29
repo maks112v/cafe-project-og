@@ -27,7 +27,7 @@ const DonateModal: FunctionComponent<Props> = ({ id, children }) => {
       <h1>Order Placed</h1>
       <p>
         We are preparing your order. In the meantime, you should consider
-        donating to our youth.
+        donating to our mission trips.
       </p>
 
       <DonateCard>
@@ -40,14 +40,18 @@ const DonateModal: FunctionComponent<Props> = ({ id, children }) => {
       <div style={{ height: 20 }} />
       <DonateCard>
         <h3>Pay</h3>
-        <Button href='https://cash.app/$molodezh' target='_blank'>
-          Apple Pay
-        </Button>
-        <Button href='https://cash.app/$molodezh' target='_blank'>
-          Google Pay
-        </Button>
+        <p>Choose your price. We accept cash and card also at the window.</p>
         <Button href='https://cash.app/$molodezh' target='_blank'>
           Cash App
+        </Button>
+        <Button
+          onClick={() => {
+            return firebase.firestore().collection('orders').doc(id).update({
+              donate: 'cash',
+            });
+          }}
+        >
+          Already Donated
         </Button>
       </DonateCard>
       <LaterButton>

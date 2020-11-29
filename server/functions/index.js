@@ -1,7 +1,7 @@
 const functions = require('firebase-functions');
 const twilio = require('twilio')(
   'AC32dfeef228900b7e293fce8e0bcc3287',
-  '336837090ea01495bf328328201b158e'
+  '33aeeb182974796b5f52895dddee3303'
 );
 const admin = require('firebase-admin');
 
@@ -25,7 +25,7 @@ exports.orderSuccess = functions.firestore
 
     if (data.phone) {
       const res = await twilio.messages.create({
-        body: `Hi ${data.name}, we will let you know when your ${data.item.name} it is ready. Check status and donate -> https://cafeproject.app/orders/${context.params.id}`,
+        body: `Hi ${data.name},\n\nWe're working on your ${data.item.name} and we'll let you know when it is ready.\n\nCheck the status and donate here 👇\n\n https://cafeproject.app/orders/${context.params.id}`,
         from: '+15402080061',
         to: `+1${data.phone}`,
       });
@@ -44,7 +44,7 @@ exports.notify = functions.firestore
 
     if (data.phone) {
       const res = await twilio.messages.create({
-        body: `Your ${data.item.name} is ready! 🎉 Come pick it up.`,
+        body: `Your ${data.item.name} is now ready! ☕\n\nDrop by the kitchen to pick it up.`,
         from: '+15402080061',
         to: `+1${data.phone}`,
       });
