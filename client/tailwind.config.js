@@ -4,12 +4,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: {
+          DEFAULT: '#B09C79',
+        },
         secondary: {
           light: '#868C90',
-          DEFAULT: '#374958',
+          DEFAULT: '#20323B',
         },
         light: '#FEF6ED',
-
         // by name
         expresso: '#B39173',
         coffee: '#4E3017',
@@ -27,5 +29,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };

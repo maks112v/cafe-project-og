@@ -5,7 +5,6 @@ import animationData from './coffee.json';
 interface Props {}
 
 const LoadingScreen: FunctionComponent<Props> = ({ children }) => {
-  console.log(animationData);
   return (
     <div className='flex items-center justify-center min-h-screen bg-light'>
       <Lottie

@@ -2,18 +2,44 @@
 
 @layer base {
   h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
     @apply text-2xl;
   }
-  h2 {
-    @apply text-xl;
-  }
-  h3 {
+
+  h4 {
     @apply text-lg;
   }
+
   a {
     @apply text-blue-600 underline;
   }
 }
 
 @tailwind components;
+
+@layer components {
+  .link {
+    @apply w-full px-3 py-2 text-secondary focus:outline-none;
+  }
+
+  .btn {
+    @apply inline-flex justify-center w-full px-4 py-2 text-base font-medium duration-300 border border-transparent rounded-md shadow-sm focus:outline-none sm:text-sm;
+  }
+
+  .btn-primary {
+    @apply text-white bg-secondary hover:bg-secondary-light focus:ring-2 focus:ring-offset-2 focus:ring-secondary-light;
+  }
+
+  .input {
+    @apply block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
+  }
+}
+
 @tailwind utilities;

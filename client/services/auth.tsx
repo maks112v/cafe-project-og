@@ -13,7 +13,7 @@ import Seo from '../components/Seo';
 
 interface AuthType {
   isLoading?: boolean;
-  auth?: any;
+  auth?: firebase.User;
   profile?: any;
   isAdmin?: boolean;
 }
@@ -29,6 +29,8 @@ export const AuthWrapper: FunctionComponent = ({ children }) => {
   const [auth, setAuth] = useState(null);
   const [profile, setProfile] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  console.log(isLoading, auth, profile, isAdmin);
 
   useEffect(() => {
     setTimeout(() => {
@@ -52,9 +54,10 @@ export const AuthWrapper: FunctionComponent = ({ children }) => {
           unsubscribe.push(accountUnsubscribe);
           const adminUnsubscribe = firebase
             .firestore()
-            .collection('admin')
+            .collection('admins')
             .doc(auth.uid)
             .onSnapshot((snap) => {
+              console.log(snap);
               setIsAdmin(snap.exists);
             });
           unsubscribe.push(adminUnsubscribe);
