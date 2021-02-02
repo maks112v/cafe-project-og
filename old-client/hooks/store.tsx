@@ -111,18 +111,22 @@ const MenuMethods = () => {
     r2u841mxif: {
       id: 'r2u841mxif',
       name: 'Mocha',
+      isAvailable: true,
     },
     miyvy7edgu: {
       id: 'miyvy7edgu',
       name: 'Vanilla',
+      isAvailable: true,
     },
     rbkh5xsd5m: {
       id: 'rbkh5xsd5m',
       name: 'Caramel',
+      isAvailable: true,
     },
     mb286bojil: {
       id: 'mb286bojil',
       name: 'Hazelnut',
+      isAvailable: false,
     },
   };
 

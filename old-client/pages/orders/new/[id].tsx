@@ -108,9 +108,11 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
                   placeholder='Syrup Flavor'
                 >
                   <option>Select Syrup Flavor</option>
-                  {syrupFlavors?.map(({ name, id }) => (
-                    <option value={id}>{name}</option>
-                  ))}
+                  {syrupFlavors
+                    ?.filter((item) => item?.isAvailable)
+                    ?.map(({ name, id }) => (
+                      <option value={id}>{name}</option>
+                    ))}
                 </InputField>
                 <br></br>
                 <InputField
