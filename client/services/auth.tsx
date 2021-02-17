@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import Error from 'next/error';
 import {
   Context,
   createContext,
@@ -7,15 +7,21 @@ import {
   useEffect,
   useState,
 } from 'react';
+import * as Realm from 'realm-web';
 import Loading from '../components/app/screens/Loading/index';
-import Login from '../components/app/screens/Login';
-import Seo from '../components/Seo';
+import LoginOverlay from '../components/Login';
+import { ENV_VARIABLES } from '../project.config';
+import '../services/realm';
+import { realmApp } from '../services/realm';
+import * as definitions from '../ts/definitions';
 
 interface AuthType {
+  refreshAuth?: () => void;
   isLoading?: boolean;
-  auth?: firebase.User;
-  profile?: any;
-  isAdmin?: boolean;
+  auth?: Realm.User;
+  user?: definitions.user;
+  googleAuthHandler?: () => void;
+  logoutHandler?: () => void;
 }
 
 const authContext: Context<AuthType> = createContext({});
@@ -23,14 +29,12 @@ const authContext: Context<AuthType> = createContext({});
 export const useSession = () => useContext(authContext);
 
 export const AuthWrapper: FunctionComponent = ({ children }) => {
-  // const [auth, isLoading, error] = useAuthState(firebase.auth());
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [auth, setAuth] = useState<Realm.User | null>(null);
+  const [user, setUser] = useState(null);
   const [animation, setAnimation] = useState(true);
-  const [auth, setAuth] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
 
-  console.log(isLoading, auth, profile, isAdmin);
+  console.log(user);
 
   useEffect(() => {
     setTimeout(() => {
@@ -38,57 +42,71 @@ export const AuthWrapper: FunctionComponent = ({ children }) => {
     }, 2500);
   }, []);
 
+  const refreshAuth = () => {
+    if (realmApp?.currentUser) {
+      setAuth(realmApp?.currentUser);
+      setUser(realmApp.currentUser.customData);
+      realmApp.currentUser.refreshCustomData().then((res) => setUser(res));
+      setIsLoading(false);
+    } else {
+      setAuth(realmApp?.currentUser);
+      setUser(null);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    let unsubscribe = [];
-    const authUnsubscribe = firebase.auth().onAuthStateChanged(async (auth) => {
-      try {
-        setAuth(auth);
-        if (auth) {
-          const accountUnsubscribe = firebase
-            .firestore()
-            .collection('users')
-            .doc(auth.uid)
-            .onSnapshot((snap) => {
-              setProfile(snap.data());
-            });
-          unsubscribe.push(accountUnsubscribe);
-          const adminUnsubscribe = firebase
-            .firestore()
-            .collection('admins')
-            .doc(auth.uid)
-            .onSnapshot((snap) => {
-              console.log(snap);
-              setIsAdmin(snap.exists);
-            });
-          unsubscribe.push(adminUnsubscribe);
-          setIsLoading(false);
-        } else {
-          setProfile(null);
-          setIsLoading(false);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    });
-    unsubscribe.push(authUnsubscribe);
+    refreshAuth();
+  }, [realmApp.currentUser]);
 
-    return () => {
-      return Promise.all(unsubscribe);
-    };
-  }, []);
+  const googleAuthHandler = async () => {
+    try {
+      const userRes = await realmApp.logIn(
+        Realm.Credentials.google(`${window?.location?.origin}/auth/google`)
+      );
 
-  const value: AuthType = {
+      userRes
+        .mongoClient('mongodb-atlas')
+        .db(ENV_VARIABLES.mdb_db)
+        .collection('users')
+        .updateOne(
+          { _id: userRes.id },
+          {
+            $set: {
+              ...userRes.profile,
+              _id: userRes.id,
+            },
+          },
+          {
+            upsert: true,
+          }
+        );
+    } catch (err) {
+      console.log(err);
+    } finally {
+      refreshAuth();
+    }
+  };
+
+  const logoutHandler = async () => {
+    await realmApp.currentUser.logOut();
+    await refreshAuth();
+  };
+
+  const value = {
+    refreshAuth,
     isLoading: isLoading || animation,
     auth,
-    profile,
-    isAdmin,
+    user,
+    googleAuthHandler,
+    logoutHandler,
   };
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;
 };
 
 export const withLoader = (Component) => (props) => {
-  const { isLoading }: any = useSession();
+  const { isLoading } = useSession();
 
   if (isLoading) {
     return <Loading />;
@@ -98,42 +116,37 @@ export const withLoader = (Component) => (props) => {
 };
 
 export const withAuth = (Component) => (props) => {
-  const { isLoading, auth }: any = useSession();
+  const { isLoading, auth } = useSession();
+
   if (isLoading) {
     return <Loading />;
   }
 
   if (!auth) {
-    firebase.auth().signInAnonymously();
-    return <Loading />;
+    return <LoginOverlay />;
   }
 
   return <Component {...props} />;
 };
 
 export const withAdmin = (Component) => (props) => {
-  const { isLoading, auth, isAdmin }: any = useSession();
+  const { isLoading, auth, user } = useSession();
+
   if (isLoading) {
     return <Loading />;
   }
 
   if (!auth) {
-    return <Login />;
+    return <LoginOverlay />;
   }
 
-  if (!isAdmin) {
-    return (
-      <>
-        <Seo titles={['Forbidden', 'Admin']} />
-        <div className='container'>
-          <div>
-            <h3>403 Forbidden</h3>
-            <p>It looks like you are not allowed.</p>
-          </div>
-        </div>
-      </>
-    );
+  if (!user?.isAdmin) {
+    return <Error statusCode={403} />;
   }
 
   return <Component {...props} />;
+};
+
+export const logoutHandler = () => {
+  return realmApp.currentUser.logOut();
 };

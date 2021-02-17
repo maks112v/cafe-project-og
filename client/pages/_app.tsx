@@ -1,7 +1,7 @@
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import { AuthWrapper } from '../services/auth';
-import '../services/init';
+import '../services/realm';
 import '../styles/global.css';
 import '../styles/nprogress.css';
 

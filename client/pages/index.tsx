@@ -9,7 +9,7 @@ const IndexPage: FunctionComponent<Props> = ({ children }) => {
   const { isLoading } = useSession();
   return (
     <>
-      <Seo titles={['']} />
+      <Seo titles={['Molodezh']} />
       <div className='container'>
         <h1>{PROJECT_CONFIG.name}</h1>
       </div>
