@@ -14,7 +14,7 @@ interface Props {}
 const InitalEditorState = {
   id: null,
   name: '',
-  type: '',
+  type: 'hot-drinks',
   desc: '',
 };
 
@@ -26,12 +26,13 @@ const AdminMenuPage: FunctionComponent<Props> = ({ children }) => {
 
   console.log(items);
 
+  const LoadItems = async () => {
+    const res = await await db.collection('items').find({});
+    setItems(res);
+  };
+
   useEffect(() => {
-    db.collection('items')
-      .find({})
-      .then((res) => {
-        setItems(res);
-      });
+    LoadItems();
   }, [isOpen]);
 
   const onSubmitHandler = async (submittedValue) => {
@@ -99,15 +100,35 @@ const AdminMenuPage: FunctionComponent<Props> = ({ children }) => {
               name: 'Actions',
               render: (item) => {
                 return (
-                  <a
-                    onClick={() => {
-                      setInitalEditor({ ...item, id: item?._id });
-                      setIsOpen(!isOpen);
-                    }}
-                    className='text-indigo-600 cursor-pointer hover:text-indigo-900'
-                  >
-                    Edit
-                  </a>
+                  <>
+                    <a
+                      onClick={async () => {
+                        if (
+                          window.confirm(
+                            `Are you sure you want to delete: ${item?.name}`
+                          )
+                        ) {
+                          db.collection('items')
+                            .deleteOne({ _id: item?._id })
+                            .then((res) => {
+                              LoadItems();
+                            });
+                        }
+                      }}
+                      className='mr-3 text-red-600 cursor-pointer hover:text-red-900'
+                    >
+                      Delete
+                    </a>
+                    <a
+                      onClick={() => {
+                        setInitalEditor({ ...item, id: item?._id });
+                        setIsOpen(!isOpen);
+                      }}
+                      className='text-indigo-600 cursor-pointer hover:text-indigo-900'
+                    >
+                      Edit
+                    </a>
+                  </>
                 );
               },
             },
@@ -125,9 +146,13 @@ const AdminMenuPage: FunctionComponent<Props> = ({ children }) => {
         >
           {(props) => (
             <Form className='grid grid-flow-row gap-2'>
-              <h3 className='mb-5'>
-                {props?.values?.['id'] ? 'Edit Item' : 'New Item'}
-              </h3>
+              <h1>{props?.values?.['id'] ? 'Edit Item' : 'New Item'}</h1>
+              <p>
+                {props?.values?.['id']
+                  ? `Editing: ${initalEditor?.name}`
+                  : 'Create a new item!'}
+              </p>
+              <div className='h-3' />
               <Field
                 name='name'
                 label='Name*'
