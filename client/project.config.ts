@@ -16,4 +16,5 @@ export const ENV_VARIABLES = {
   mdb_atlas: 'mongodb-atlas',
   gcc_dev:
     '599824864521-27vbqps5p46lqiuq47ltq1b39vdufi1h.apps.googleusercontent.com',
+  staticKey: '1jBNzAYHiX99WzaHMs8ypA26X0Hd1pRbodx48G8kAw9Ck2Jdq1D5IXzrmvEY7hAk',
 };

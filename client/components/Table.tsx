@@ -55,16 +55,22 @@ const Table: FunctionComponent<Props> = ({
                 </tr>
               </thead>
               <tbody>
-                {/* Odd row */}
                 {data?.map((item, index) => (
-                  <tr className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                    {cols?.map((col) =>
+                  <tr
+                    key={`row-${index}`}
+                    className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+                  >
+                    {cols?.map((col, index) =>
                       col?.render ? (
-                        <td className={classnames(TableRowCol, 'text-right')}>
+                        <td
+                          key={`col-${index}`}
+                          className={classnames(TableRowCol, 'text-right')}
+                        >
                           {col.render(item)}
                         </td>
                       ) : (
                         <td
+                          key={`col-${index}`}
                           className={classnames(TableRowCol, {
                             ['text-gray-500']: !col.highlight,
                             ['text-gray-900']: col?.highlight,
@@ -75,14 +81,6 @@ const Table: FunctionComponent<Props> = ({
                         </td>
                       )
                     )}
-                    {/* <td className='px-6 py-4 text-sm font-medium text-right whitespace-nowrap'>
-                      <a
-                        href='#'
-                        className='text-indigo-600 hover:text-indigo-900'
-                      >
-                        Edit
-                      </a>
-                    </td> */}
                   </tr>
                 ))}
               </tbody>

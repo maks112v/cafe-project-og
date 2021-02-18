@@ -1,5 +1,7 @@
+import { ApolloProvider } from '@apollo/client';
 import Router from 'next/router';
 import NProgress from 'nprogress';
+import { apolloClient } from '../services/apollo';
 import { AuthWrapper } from '../services/auth';
 import '../services/realm';
 import '../styles/global.css';
@@ -12,7 +14,9 @@ Router.events.on('routeChangeError', () => NProgress.done());
 function MyApp({ Component, pageProps }) {
   return (
     <AuthWrapper>
-      <Component {...pageProps} />
+      <ApolloProvider client={apolloClient}>
+        <Component {...pageProps} />
+      </ApolloProvider>
     </AuthWrapper>
   );
 }
