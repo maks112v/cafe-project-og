@@ -4,8 +4,10 @@ import { classnames } from 'tailwindcss-classnames';
 import * as yup from 'yup';
 import Modal from '../../../components/app/Modal';
 import Input from '../../../components/Input';
+import IconSelect from '../../../components/Input/IconSelect';
 import Seo from '../../../components/Seo';
 import Table from '../../../components/Table';
+import { AllIcons } from '../../../data/Icons';
 import { useSession, withAdmin } from '../../../services/auth';
 import { db } from '../../../services/realm';
 
@@ -15,6 +17,7 @@ const InitalEditorState = {
   id: null,
   name: '',
   type: 'hot-drinks',
+  icon: '',
   desc: '',
 };
 
@@ -87,6 +90,19 @@ const AdminMenuPage: FunctionComponent<Props> = ({ children }) => {
               name: 'Name',
               key: 'name',
               highlight: true,
+            },
+            {
+              name: 'Icon',
+              render: (item) => (
+                <>
+                  <img
+                    style={{ maxHeight: 32 }}
+                    src={
+                      AllIcons.find((icon) => icon?.slug === item?.icon)?.src
+                    }
+                  />
+                </>
+              ),
             },
             {
               name: 'Description',
@@ -177,6 +193,7 @@ const AdminMenuPage: FunctionComponent<Props> = ({ children }) => {
                 placeholder='It really is a serious problem if tea can’t fix it.'
                 component={Input}
               />
+              <IconSelect name='icon' label='Select Icon' />
               <button
                 type='button'
                 className='link'

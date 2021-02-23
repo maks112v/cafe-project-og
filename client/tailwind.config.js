@@ -9,7 +9,15 @@ module.exports = {
         },
         secondary: {
           light: '#868C90',
-          DEFAULT: '#20323B',
+          100: '#d2d6d8',
+          200: '#a6adb1',
+          300: '#798489',
+          400: '#4d5b62',
+          DEFAULT: '#20323b',
+          600: '#1a282f',
+          700: '#131e23',
+          800: '#0d1418',
+          900: '#060a0c',
         },
         light: '#FEF6ED',
         // by name
