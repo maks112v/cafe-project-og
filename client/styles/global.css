@@ -1,6 +1,13 @@
 @tailwind base;
 
 @layer base {
+  body {
+    @apply bg-white;
+    /* background-image: url('/background.svg');
+    background-repeat: repeat;
+    background-size: 500px 500px; */
+  }
+
   h1 {
     @apply text-4xl font-bold;
   }
@@ -47,3 +54,11 @@
 }
 
 @tailwind utilities;
+
+@layer utilities {
+  .bg-accent {
+    background-image: url('/accent-bg.svg');
+    background-repeat: repeat;
+    background-size: 500px 500px;
+  }
+}

@@ -1,14 +1,70 @@
+import { Field, Form, Formik } from 'formik';
 import { FunctionComponent } from 'react';
 import { BSON } from 'realm-web';
-import { getReadDb } from '../../services/realm';
-
+import Input from '../../components/Input';
+import ItemInputResolver from '../../components/ItemInputResolver';
+import Seo from '../../components/Seo';
+import { AllIcons } from '../../data/Icons';
+import { useSession } from '../../services/auth';
+import { db, getReadDb } from '../../services/realm';
+import * as definitions from '../../ts/definitions';
 interface Props {
-  item: any;
+  item: definitions.item;
 }
 
 const ItemId: FunctionComponent<Props> = ({ item, children }) => {
+  const { auth } = useSession();
   console.log(item);
-  return <></>;
+  const onSubmitHandler = async (values) => {
+    console.log(values);
+    db.collection('orders').insertOne({
+      ...values,
+      itemId: {
+        $oid: item?._id,
+      },
+      item,
+      status: [
+        {
+          name: 'Placed',
+          tag: 'placed',
+          time: new Date().toISOString(),
+        },
+      ],
+      owner: auth.id,
+    });
+  };
+  return (
+    <>
+      <Seo titles={[item?.name]} />
+      <div className='container max-w-2xl'>
+        <img
+          style={{ maxHeight: 125 }}
+          src={AllIcons.find((icon) => icon?.slug === item?.icon)?.src}
+        />
+        <div>
+          <h3>{item?.name}</h3>
+          <div className='h-1' />
+          <p>{item?.desc}</p>
+        </div>
+      </div>
+      <div className='container max-w-2xl'>
+        <Formik
+          onSubmit={onSubmitHandler}
+          initialValues={{ for: '', syrups: '' }}
+        >
+          <Form className='grid gap-3 my-3'>
+            <Field component={Input} name='for' label='Order For*' />
+            {item?.inputs?.map((input) => (
+              <ItemInputResolver type={input} />
+            ))}
+            <button type='submit' className='btn btn-primary'>
+              Submit
+            </button>
+          </Form>
+        </Formik>
+      </div>
+    </>
+  );
 };
 
 export async function getStaticPaths() {

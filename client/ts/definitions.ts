@@ -4,6 +4,7 @@ export type user = {
   _id?: string;
   email?: string;
   firstName?: string;
+  isAdmin?: boolean;
   lastName?: string;
   name?: string;
   pictureUrl?: string;
@@ -15,53 +16,97 @@ export const userSchema = {
     _id: 'string?',
     email: 'string?',
     firstName: 'string?',
+    isAdmin: 'bool?',
     lastName: 'string?',
     name: 'string?',
-    pictureUrl: 'string?'
+    pictureUrl: 'string?',
   },
-  primaryKey: '_id'
+  primaryKey: '_id',
 };
 
-export type doc = {
+export type order = {
   _id?: BSON.ObjectId;
-  content?: string;
-  createdAt?: number;
-  editors: Array<user>;
-  lang?: doc_lang;
-  masterDoc?: boolean;
+  for?: string;
+  item?: order_item;
+  itemId?: item;
   owner?: user;
-  status?: string;
-  title?: string;
-  updatedAt?: number;
+  status: Array<order_status>;
+  syrups?: string;
 };
 
-export const docSchema = {
-  name: 'doc',
+export const orderSchema = {
+  name: 'order',
   properties: {
     _id: 'objectId?',
-    content: 'string?',
-    createdAt: 'int?',
-    editors: 'user[]',
-    lang: 'doc_lang',
-    masterDoc: 'bool?',
+    for: 'string?',
+    item: 'order_item',
+    itemId: 'item',
     owner: 'user',
-    status: 'string?',
-    title: 'string?',
-    updatedAt: 'int?'
+    status: 'order_status[]',
+    syrups: 'string?',
   },
-  primaryKey: '_id'
+  primaryKey: '_id',
 };
 
-export type doc_lang = {
-  code?: string;
+export type order_item = {
+  _id?: string;
+  createdAt?: number;
+  desc?: string;
+  icon?: string;
+  inputs: Array<string>;
   name?: string;
+  type?: string;
 };
 
-export const doc_langSchema = {
-  name: 'doc_lang',
+export const order_itemSchema = {
+  name: 'order_item',
   embedded: true,
   properties: {
-    code: 'string?',
-    name: 'string?'
-  }
+    _id: 'string?',
+    createdAt: 'int?',
+    desc: 'string?',
+    icon: 'string?',
+    inputs: 'string[]',
+    name: 'string?',
+    type: 'string?',
+  },
+  primaryKey: '_id',
+};
+
+export type order_status = {
+  name?: string;
+  tag?: string;
+  time?: string;
+};
+
+export const order_statusSchema = {
+  name: 'order_status',
+  embedded: true,
+  properties: {
+    name: 'string?',
+    tag: 'string?',
+    time: 'string?',
+  },
+};
+
+export type item = {
+  _id?: BSON.ObjectId;
+  desc?: string;
+  icon?: string;
+  inputs: Array<string>;
+  name?: string;
+  type?: string;
+};
+
+export const itemSchema = {
+  name: 'item',
+  properties: {
+    _id: 'objectId?',
+    desc: 'string?',
+    icon: 'string?',
+    inputs: 'string[]',
+    name: 'string?',
+    type: 'string?',
+  },
+  primaryKey: '_id',
 };

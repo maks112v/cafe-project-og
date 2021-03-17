@@ -46,13 +46,11 @@ const AdminMenuPage: FunctionComponent<Props> = ({ children }) => {
           { _id: id },
           {
             ...values,
-            createdAt: new Date().valueOf(),
           }
         );
       } else {
         await db.collection('items').insertOne({
           ...values,
-          createdAt: new Date().valueOf(),
         });
       }
     } catch (err) {

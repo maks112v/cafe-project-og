@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 
-interface Props extends React.Component {
+interface Props {
   type?: 'text' | 'select' | 'textarea';
   label?: string;
   field: any;
@@ -22,7 +22,7 @@ const Input: FunctionComponent<Props> = ({
           htmlFor='location'
           className='block text-sm font-medium text-gray-700'
         >
-          Location
+          {label}
         </label>
         <select
           id='location'
