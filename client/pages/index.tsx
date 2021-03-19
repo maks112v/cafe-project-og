@@ -11,7 +11,6 @@ interface Props {
 }
 
 const IndexPage: FunctionComponent<Props> = ({ items, children }) => {
-  console.log(items);
   const { isLoading } = useSession();
 
   return (
@@ -34,7 +33,7 @@ const IndexPage: FunctionComponent<Props> = ({ items, children }) => {
                 <div className='p-4'>
                   <h3>{item?.name}</h3>
                   <div className='h-1' />
-                  <p>{item?.desc}</p>
+                  <p className='line-clamp-3'>{item?.desc}</p>
                 </div>
               </div>
             </Link>
