@@ -1,10 +1,9 @@
+import Seo from '@components/Seo';
+import { AllIcons } from '@data/Icons';
+import { useSession, withLoader } from '@services/auth';
+import { getReadDb } from '@services/realm';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
-import Seo from '../components/Seo';
-import { AllIcons } from '../data/Icons';
-import { PROJECT_CONFIG } from '../project.config';
-import { useSession, withLoader } from '../services/auth';
-import { getReadDb } from '../services/realm';
 
 interface Props {
   items: any;
@@ -17,8 +16,7 @@ const IndexPage: FunctionComponent<Props> = ({ items, children }) => {
     <>
       <Seo titles={['Molodezh']} />
       <div className='container max-w-3xl mt-5 mb-20'>
-        <h1>{PROJECT_CONFIG.name}</h1>
-        <div className='grid grid-cols-2 gap-5 my-5'>
+        <div className='grid gap-5 my-5 md:grid-cols-2'>
           {items?.map((item) => (
             <Link href={`/items/${item?._id}`}>
               <div className='flex flex-col overflow-hidden bg-white border rounded cursor-pointer hover:shadow-lg'>
@@ -30,10 +28,14 @@ const IndexPage: FunctionComponent<Props> = ({ items, children }) => {
                     }
                   />
                 </div>
-                <div className='p-4'>
+                <div className='flex flex-col flex-grow p-4'>
                   <h3>{item?.name}</h3>
                   <div className='h-1' />
                   <p className='line-clamp-3'>{item?.desc}</p>
+                  <div className='flex-grow h-4' />
+                  <div>
+                    <button className='btn btn-primary'>Order</button>
+                  </div>
                 </div>
               </div>
             </Link>

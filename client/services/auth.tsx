@@ -32,7 +32,8 @@ export const AuthWrapper: FunctionComponent = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [auth, setAuth] = useState<Realm.User | null>(null);
   const [user, setUser] = useState(null);
-  const [animation, setAnimation] = useState(true);
+  //TODO: Update to true for launch
+  const [animation, setAnimation] = useState(false);
 
   console.log(user);
 

@@ -1,9 +1,9 @@
 import { ApolloProvider } from '@apollo/client';
+import { apolloClient } from '@services/apollo';
+import { AuthWrapper } from '@services/auth';
+import '@services/realm';
 import Router from 'next/router';
 import NProgress from 'nprogress';
-import { apolloClient } from '../services/apollo';
-import { AuthWrapper } from '../services/auth';
-import '../services/realm';
 import '../styles/global.css';
 import '../styles/nprogress.css';
 

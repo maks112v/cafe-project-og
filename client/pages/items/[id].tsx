@@ -1,6 +1,7 @@
 import { Field, Form, Formik } from 'formik';
 import { FunctionComponent } from 'react';
 import { BSON } from 'realm-web';
+import * as yup from 'yup';
 import Input from '../../components/Input';
 import ItemInputResolver from '../../components/ItemInputResolver';
 import Seo from '../../components/Seo';
@@ -36,7 +37,7 @@ const ItemId: FunctionComponent<Props> = ({ item, children }) => {
   return (
     <>
       <Seo titles={[item?.name]} />
-      <div className='container max-w-2xl'>
+      <div className='container max-w-3xl'>
         <img
           style={{ maxHeight: 125 }}
           src={AllIcons.find((icon) => icon?.slug === item?.icon)?.src}
@@ -47,10 +48,13 @@ const ItemId: FunctionComponent<Props> = ({ item, children }) => {
           <p>{item?.desc}</p>
         </div>
       </div>
-      <div className='container max-w-2xl'>
+      <div className='container max-w-3xl'>
         <Formik
           onSubmit={onSubmitHandler}
           initialValues={{ for: '', syrups: '' }}
+          validationSchema={yup.object().shape({
+            for: yup.string().required('Name required'),
+          })}
         >
           <Form className='grid gap-3 my-3'>
             <Field component={Input} name='for' label='Order For*' />

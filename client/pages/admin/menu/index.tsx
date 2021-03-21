@@ -1,16 +1,17 @@
+import Modal from '@components/app/Modal';
+import Input from '@components/Input';
+import IconSelect from '@components/Input/IconSelect';
+import { AllInputs } from '@components/ItemInputResolver';
+import Seo from '@components/Seo';
+import Table from '@components/Table';
+import { AllIcons } from '@data/Icons';
+import { useSession, withAdmin } from '@services/auth';
+import { db } from '@services/realm';
 import { Field, Form, Formik } from 'formik';
-import { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import Select from 'react-select';
 import { classnames } from 'tailwindcss-classnames';
 import * as yup from 'yup';
-import Modal from '../../../components/app/Modal';
-import Input from '../../../components/Input';
-import IconSelect from '../../../components/Input/IconSelect';
-import Seo from '../../../components/Seo';
-import Table from '../../../components/Table';
-import { AllIcons } from '../../../data/Icons';
-import { useSession, withAdmin } from '../../../services/auth';
-import { db } from '../../../services/realm';
-
 interface Props {}
 
 const InitalEditorState = {
@@ -19,6 +20,7 @@ const InitalEditorState = {
   type: 'hot-drinks',
   icon: '',
   desc: '',
+  inputs: [],
 };
 
 const AdminMenuPage: FunctionComponent<Props> = ({ children }) => {
@@ -41,6 +43,7 @@ const AdminMenuPage: FunctionComponent<Props> = ({ children }) => {
   const onSubmitHandler = async (submittedValue) => {
     try {
       const { id, ...values } = submittedValue;
+      console.log(values);
       if (id) {
         await db.collection('items').updateOne(
           { _id: id },
@@ -190,6 +193,19 @@ const AdminMenuPage: FunctionComponent<Props> = ({ children }) => {
                 type='textarea'
                 placeholder='It really is a serious problem if tea can’t fix it.'
                 component={Input}
+              />
+              <Select
+                isMulti
+                options={AllInputs}
+                value={props?.values?.inputs?.map((selectedValue) =>
+                  AllInputs?.find((item) => item?.value === selectedValue)
+                )}
+                onChange={(value) =>
+                  props.setFieldValue(
+                    'inputs',
+                    value?.map((item) => item?.value)
+                  )
+                }
               />
               <IconSelect name='icon' label='Select Icon' />
               <button
