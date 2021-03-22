@@ -7,7 +7,7 @@ import Input from '../../components/Input';
 import ItemInputResolver from '../../components/ItemInputResolver';
 import Seo from '../../components/Seo';
 import { AllIcons } from '../../data/Icons';
-import { useSession } from '../../services/auth';
+import { useSession, withAuth } from '../../services/auth';
 import { db, getReadDb } from '../../services/realm';
 import * as definitions from '../../ts/definitions';
 interface Props {
@@ -100,4 +100,4 @@ export async function getStaticProps(ctx) {
   };
 }
 
-export default ItemId;
+export default withAuth(ItemId);
