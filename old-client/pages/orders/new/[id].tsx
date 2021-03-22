@@ -86,7 +86,9 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
             <OrderItem {...doc} />
             <InputField autofocus name='name' placeholder='Name' required />
             <InputMasked autofocus name='phone' placeholder='Phone' />
-            {id === 'e3yqr9fn31' && (
+            {!['e3yqr9fn31', 'e6yo7xbzla', 'dont1drink'].includes(
+              String(id)
+            ) && (
               <InputField
                 name='details.teaId'
                 as='select'
@@ -100,7 +102,9 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
                 ))}
               </InputField>
             )}
-            {id !== 'e3yqr9fn31' && (
+            {!['e3yqr9fn31', 'e6yo7xbzla', 'dont1drink'].includes(
+              String(id)
+            ) && (
               <div>
                 <InputField
                   name='details.syrupId'

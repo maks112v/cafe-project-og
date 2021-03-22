@@ -1,7 +1,6 @@
-import { Context, FunctionComponent, createContext, useContext } from 'react';
-
 /* eslint-disable no-unused-vars */
 import firebase from 'firebase';
+import { Context, createContext, FunctionComponent, useContext } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useSession } from './auth';
 
@@ -75,6 +74,21 @@ const MenuMethods = () => {
       image: '/items/tea.svg',
       available: true,
       description: 'It really is a serious problem if tea can’t fix it.',
+    },
+    e6yo7xbzla: {
+      id: 'e6yo7xbzla',
+      name: 'Pink Drink',
+      available: true,
+      image: '/items/pink-drink.svg',
+      description:
+        'Strawberry, raspberry, dragonfruit & coconut milk. Served over ice.',
+    },
+    dont1drink: {
+      id: 'dont1drink',
+      name: 'Matcha',
+      available: true,
+      image: '/items/matcha.svg',
+      description: 'Plain or sweetened with honey or white chocolate.',
     },
     piuy88zw7n: {
       id: 'piuy88zw7n',
@@ -196,7 +210,7 @@ const OrdersMethods = () => {
         .orderBy('meta.createdAt', 'desc'),
     {
       idField: 'id',
-    },
+    }
   );
 
   return { orders, loadingOrders };
