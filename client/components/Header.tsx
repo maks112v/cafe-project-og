@@ -1,19 +1,24 @@
-import { PROJECT_CONFIG } from '#project';
 import React, { FunctionComponent } from 'react';
+import { PROJECT_CONFIG } from '../project.config';
 import Profile from './Profile';
 
-interface HeaderPageProps {}
+interface HeaderProps {}
 
-const HeaderPage: FunctionComponent<HeaderPageProps> = ({ children }) => {
+const Header: FunctionComponent<HeaderProps> = ({ children }) => {
   return (
-    <div className='flex items-center'>
-      <div>
-        <h1>{PROJECT_CONFIG.name}</h1>
+    <div className='container max-w-3xl mb-8 mt-14'>
+      <div className='flex items-center'>
+        <div>
+          <h1>{PROJECT_CONFIG.name}</h1>
+        </div>
+        <div className='flex-grow' />
+        <div>
+          <Profile />
+          {children}
+        </div>
       </div>
-      <div className='flex-grow' />
-      <Profile />
     </div>
   );
 };
 
-export default HeaderPage;
+export default Header;

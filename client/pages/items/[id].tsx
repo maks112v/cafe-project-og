@@ -1,4 +1,5 @@
 import { Field, Form, Formik } from 'formik';
+import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
 import { BSON } from 'realm-web';
 import * as yup from 'yup';
@@ -15,10 +16,11 @@ interface Props {
 
 const ItemId: FunctionComponent<Props> = ({ item, children }) => {
   const { auth } = useSession();
+  const router = useRouter();
   console.log(item);
   const onSubmitHandler = async (values) => {
     console.log(values);
-    db.collection('orders').insertOne({
+    const res = await db.collection('orders').insertOne({
       ...values,
       itemId: {
         $oid: item?._id,
@@ -33,6 +35,8 @@ const ItemId: FunctionComponent<Props> = ({ item, children }) => {
       ],
       owner: auth.id,
     });
+
+    router.push(`/order/${res.insertedId}`);
   };
   return (
     <>

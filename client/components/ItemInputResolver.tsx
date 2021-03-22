@@ -48,7 +48,7 @@ const ItemInputResolver: FunctionComponent<ItemInputResolverProps> = ({
           <option value='caramel'>Caramel</option>
           <option value='chocolate'>Chocolate</option>
         </Field>
-        {formik?.values?.syrups !== '' && (
+        {formik?.values?.['syrups'] !== '' && (
           <Field
             name='syrupPumps'
             label='Syrup Pumps'

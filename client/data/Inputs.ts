@@ -36,9 +36,8 @@ export const syrupAmount = {
   },
 };
 
-export const teaFlavor = {
-  
+export const teaFlavor = [
   {
-    name:""
-  }
-};
+    name: '',
+  },
+];

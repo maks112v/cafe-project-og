@@ -1,3 +1,4 @@
+import Header from '@components/Header';
 import Seo from '@components/Seo';
 import { AllIcons } from '@data/Icons';
 import { useSession, withLoader } from '@services/auth';
@@ -15,7 +16,8 @@ const IndexPage: FunctionComponent<Props> = ({ items, children }) => {
   return (
     <>
       <Seo titles={['Molodezh']} />
-      <div className='container max-w-3xl mt-5 mb-20'>
+      <Header />
+      <div className='container max-w-3xl'>
         <div className='grid gap-5 my-5 md:grid-cols-2'>
           {items?.map((item) => (
             <Link href={`/items/${item?._id}`}>
