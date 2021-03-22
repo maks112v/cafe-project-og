@@ -1,6 +1,7 @@
+import { Context, FunctionComponent, createContext, useContext } from 'react';
+
 /* eslint-disable no-unused-vars */
 import firebase from 'firebase';
-import { Context, createContext, FunctionComponent, useContext } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useSession } from './auth';
 
@@ -126,7 +127,17 @@ const MenuMethods = () => {
     mb286bojil: {
       id: 'mb286bojil',
       name: 'Hazelnut',
-      isAvailable: false,
+      isAvailable: true,
+    },
+    hdc6u4h1o8: {
+      id: 'mb286bojil',
+      name: 'Honey',
+      isAvailable: true,
+    },
+    xmun9ninxl: {
+      id: 'mb286bojil',
+      name: 'Lavendar',
+      isAvailable: true,
     },
   };
 
@@ -185,7 +196,7 @@ const OrdersMethods = () => {
         .orderBy('meta.createdAt', 'desc'),
     {
       idField: 'id',
-    }
+    },
   );
 
   return { orders, loadingOrders };
