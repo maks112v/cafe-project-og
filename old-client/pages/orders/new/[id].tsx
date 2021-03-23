@@ -86,9 +86,7 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
             <OrderItem {...doc} />
             <InputField autofocus name='name' placeholder='Name' required />
             <InputMasked autofocus name='phone' placeholder='Phone' />
-            {!['e3yqr9fn31', 'e6yo7xbzla', 'dont1drink'].includes(
-              String(id)
-            ) && (
+            {id === 'e3yqr9fn31' && (
               <InputField
                 name='details.teaId'
                 as='select'

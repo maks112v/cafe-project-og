@@ -99,7 +99,7 @@ const MenuMethods = () => {
     cy1zgxn96m: {
       id: 'cy1zgxn96m',
       name: 'Hot Chocolate',
-      available: true,
+      available: false,
       image: '/items/hot-coco.svg',
     },
   };
