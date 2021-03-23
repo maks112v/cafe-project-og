@@ -75,6 +75,21 @@ const MenuMethods = () => {
       available: true,
       description: 'It really is a serious problem if tea can’t fix it.',
     },
+    e6yo7xbzla: {
+      id: 'e6yo7xbzla',
+      name: 'Pink Drink',
+      available: true,
+      image: '/items/pink-drink.svg',
+      description:
+        'Strawberry, raspberry, dragonfruit & coconut milk. Served over ice.',
+    },
+    dont1drink: {
+      id: 'dont1drink',
+      name: 'Matcha',
+      available: true,
+      image: '/items/matcha.svg',
+      description: 'Plain or sweetened with honey or white chocolate.',
+    },
     piuy88zw7n: {
       id: 'piuy88zw7n',
       name: 'Drip Coffee',
@@ -84,7 +99,7 @@ const MenuMethods = () => {
     cy1zgxn96m: {
       id: 'cy1zgxn96m',
       name: 'Hot Chocolate',
-      available: true,
+      available: false,
       image: '/items/hot-coco.svg',
     },
   };
@@ -126,7 +141,17 @@ const MenuMethods = () => {
     mb286bojil: {
       id: 'mb286bojil',
       name: 'Hazelnut',
-      isAvailable: false,
+      isAvailable: true,
+    },
+    hdc6u4h1o8: {
+      id: 'mb286bojil',
+      name: 'Honey',
+      isAvailable: true,
+    },
+    xmun9ninxl: {
+      id: 'mb286bojil',
+      name: 'Lavendar',
+      isAvailable: true,
     },
   };
 
