@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -19,22 +15,18 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@base/*": ["/*"],
+      //? Folders
       "@components/*": ["components/*"],
-      "@hooks/*": ["hooks/*"],
-      "@enums/*": ["enums/*"],
-      "@types/*": ["types/*"],
-      "@public/*": ["public/*"],
-      "@styles/*": ["styles/*"],
+      "@data/*": ["data/*"],
+      "@graphql/*": ["graphql/*"],
+      "@lib/*": ["lib/*"],
       "@services/*": ["services/*"],
+      "@ts/*": ["ts/*"],
+      "@utils/*": ["utils/*"],
+      //? Files
+      "#project": ["project.config.js"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

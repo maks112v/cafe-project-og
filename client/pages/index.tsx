@@ -1,65 +1,99 @@
-import Header from '@components/Header';
-import Seo from '@components/Seo';
-import { AllIcons } from '@data/Icons';
-import { useSession, withLoader } from '@services/auth';
-import { getReadDb } from '@services/realm';
+import styled from '@emotion/styled';
+import { useStore } from '@hooks/store';
 import Link from 'next/link';
-import { FunctionComponent } from 'react';
+import OrderItem from '../components/OrderItem';
+import Orders from '../components/Orders';
+import Seo from '../components/Seo';
+import { Container } from '../styles/Container';
 
-interface Props {
-  items: any;
-}
+const CardWrapper = styled.div({
+  display: 'grid',
+  gap: 20,
+});
 
-const IndexPage: FunctionComponent<Props> = ({ items, children }) => {
-  const { isLoading } = useSession();
+const ItemCard = styled.div({});
+
+function Home({ items }) {
+  const { selectableDrinks } = useStore();
 
   return (
     <>
-      <Seo titles={['Molodezh']} />
-      <Header />
-      <div className='container max-w-3xl'>
-        <div className='grid gap-5 my-5 md:grid-cols-2'>
-          {items?.map((item) => (
-            <Link href={`/items/${item?._id}`}>
-              <div className='flex flex-col overflow-hidden bg-white border rounded cursor-pointer hover:shadow-lg'>
-                <div className='flex items-center justify-center h-56 p-4 bg-light bg-accent'>
-                  <img
-                    style={{ maxHeight: 125 }}
-                    src={
-                      AllIcons.find((icon) => icon?.slug === item?.icon)?.src
-                    }
-                  />
-                </div>
-                <div className='flex flex-col flex-grow p-4'>
-                  <h3>{item?.name}</h3>
-                  <div className='h-1' />
-                  <p className='line-clamp-3'>{item?.desc}</p>
-                  <div className='flex-grow h-4' />
-                  <div>
-                    <button className='btn btn-primary'>Order</button>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <Seo titles={['Order']} />
+      <Container>
+        <Orders />
+        <h1>Order</h1>
+        <p>Get a little something special</p>
+        <CardWrapper>
+          {selectableDrinks
+            ?.filter((data) => data?.available)
+            ?.map((data) => (
+              <Link key={data?.id} href={`/orders/new/${data?.id}`}>
+                <OrderItem
+                  {...data}
+
+                  // onClick={() => setSelectedDrink(data?.id)}
+                />
+              </Link>
+            ))}
+        </CardWrapper>
+      </Container>
     </>
   );
-};
 
-export async function getStaticProps(ctx) {
-  const db = await getReadDb();
+  return (
+    <>
+      <Seo titles={['Order']} />
+      <Container>
+        <Orders />
+        <h1>New Order</h1>
+        <p>Click on a drink to place an order.</p>
+        <CardWrapper>
+          {selectableDrinks
+            ?.filter((data) => data?.available)
+            ?.map((data) => (
+              <Link key={data?.id} href={`/orders/new/${data?.id}`}>
+                <OrderItem
+                  {...data}
 
-  const res = await db.collection('items').find({});
-
-  console.log(res);
-  return {
-    props: {
-      items: JSON.parse(JSON.stringify(res)),
-    }, // will be passed to the page component as props
-    revalidate: 60,
-  };
+                  // onClick={() => setSelectedDrink(data?.id)}
+                />
+              </Link>
+            ))}
+        </CardWrapper>
+      </Container>
+    </>
+  );
 }
 
-export default withLoader(IndexPage);
+// export async function getStaticProps(context) {
+//   try {
+//     const query = await firebase.firestore().collection('items').get();
+
+//     let items = [];
+
+//     query.docs.forEach((item) => {
+//       items.push({ id: item.id, ...item.data() });
+//     });
+
+//     return {
+//       props: {
+//         items,
+//       }, // will be passed to the page component as props
+//       revalidate: 30,
+//     };
+//   } catch (err) {
+//     console.log(err);
+
+//     return {
+//       props: {
+//         err: {
+//           // status: err?.status,
+//           message: err?.message,
+//         },
+//       }, // will be passed to the page component as props
+//       revalidate: 1,
+//     };
+//   }
+// }
+
+export default Home;
