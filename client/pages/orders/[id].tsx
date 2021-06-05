@@ -2,7 +2,6 @@ import Button from '@components/Button';
 import Loading from '@components/Loading';
 import { Statuses } from '@components/OrderedItem/statuses';
 import OrderItem from '@components/OrderItem';
-import ProgressBar from '@components/ProgressBar';
 import Seo from '@components/Seo';
 import styled from '@emotion/styled';
 import { withAuth } from '@hooks/auth';
@@ -58,12 +57,12 @@ const OrderDetails: FunctionComponent = () => {
       <ContentWrapper>
         <OrderItem {...getDrinkbyId(data?.item?.id)} />
         <StatusCard>
-          <ProgressBar data={data} />
+          {/* <ProgressBar data={data} /> */}
           <h3>{Statuses[data?.status]}</h3>
-          <p> {data?.name}</p>
+          <p>{data?.name}</p>
           {data?.special && <p>Special: {data?.special}</p>}
           {data?.meta?.completedAt && (
-            <p>
+            <p className='sm'>
               Complete{' '}
               <Moment interval={30000} fromNow>
                 {data?.meta?.completedAt}

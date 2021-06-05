@@ -29,7 +29,6 @@ const StyledButton = styled.button({
   color: color_milk,
   '&:hover': {
     backgroundColor: 'white',
-
     color: '#111827',
   },
 });

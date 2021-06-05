@@ -57,9 +57,18 @@ const MenuMethods = () => {
       id: 'aohv0owt7h',
       name: 'Latte',
       image: '/items/latte.svg',
+      hostFavorite: true,
       available: true,
       description:
-        'A single shot of espresso with three parts steamed milk. It is usually bigger than a cappuccino because it contains more milk and can be ordered with flavoring.',
+        'A single shot of espresso with steamed milk. Can be ordered with some delicious flavoring.',
+    },
+    e6yo7xbzla: {
+      id: 'e6yo7xbzla',
+      name: 'Pink Drink',
+      available: true,
+      image: '/items/pink-drink.svg',
+      description:
+        'Strawberry, raspberry, dragonfruit & coconut milk. Served over ice.',
     },
     fq6my5ts27: {
       id: 'fq6my5ts27',
@@ -80,8 +89,9 @@ const MenuMethods = () => {
       id: 'e3yqr9fn31',
       name: 'Tea',
       image: '/items/tea.svg',
-      available: false,
-      description: 'It really is a serious problem if tea can’t fix it.',
+      available: true,
+      description:
+        'It really is a serious problem if tea can’t fix it... Maybe Rossoshanskiy Can!',
     },
     piuy88zw7n: {
       id: 'piuy88zw7n',

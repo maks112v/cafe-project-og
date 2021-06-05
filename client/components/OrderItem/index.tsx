@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 const ItemCard = styled.div((props) => ({
   // backgroundColor: color_card_background,
   padding: `25px 25px`,
+  position: 'relative',
   // borderRadius: 10,
   cursor: props?.onClick && 'pointer',
   display: 'flex',
@@ -30,6 +31,7 @@ export default function OrderItem({
   name,
   image = '/items/empty.svg',
   description,
+  hostFavorite,
   ...rest
 }) {
   return (
@@ -41,6 +43,20 @@ export default function OrderItem({
         <h4>{name}</h4>
         <p>{description}</p>
       </div>
+      {hostFavorite && (
+        <div
+          style={{
+            position: 'absolute',
+            padding: `6px 8px`,
+            top: -15,
+            right: -15,
+            backgroundColor: '#2563EB',
+            color: 'white',
+          }}
+        >
+          Host Favorite
+        </div>
+      )}
     </ItemCard>
   );
 }

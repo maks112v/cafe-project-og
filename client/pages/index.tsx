@@ -20,9 +20,13 @@ function Home({ items }) {
     <>
       <Seo titles={['Order']} />
       <Container>
-        <Orders />
-        <h1>Order</h1>
-        <p>Get a little something special</p>
+        {/* <Orders /> */}
+        <h1>
+          Girls Night Live <span style={{ color: '#2563EB' }}>Cafe</span>
+        </h1>
+        <p>
+          GNL with your host <strong>Rossoshanskiy</strong>
+        </p>
         <CardWrapper>
           {selectableDrinks
             ?.filter((data) => data?.available)

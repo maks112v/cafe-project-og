@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Moment from 'react-moment';
 import { useSession } from '../../hooks/auth';
 import { useStore } from '../../hooks/store';
-import { color_background, color_border } from '../../styles/colors';
+import { color_border } from '../../styles/colors';
 import { ContentWrapper } from '../../styles/ContentWrapper';
 import Button from '../Button';
 import { Statuses } from '../OrderedItem/statuses';
@@ -13,11 +13,11 @@ import { Statuses } from '../OrderedItem/statuses';
 const Card = styled.div({
   display: 'flex',
   alignItems: 'center',
-  backgroundColor: color_background,
-  padding: 10,
+  backgroundColor: 'white',
+  padding: 20,
   border: `1px solid ${color_border}`,
   cursor: 'pointer',
-  borderRadius: 4,
+  // borderRadius: 4,
   h5: { margin: 0 },
 });
 
@@ -66,7 +66,7 @@ export default function Orders() {
       {orders?.length > 0 && (
         <TitleWrapper>
           <h1>Recent Orders</h1>
-          <Avatar src={auth?.providerData?.[0]?.photoURL} />
+          {/* <Avatar src={auth?.providerData?.[0]?.photoURL} /> */}
         </TitleWrapper>
       )}
       {orders?.slice(0, 2)?.map((order) => (
@@ -74,7 +74,7 @@ export default function Orders() {
           <Card>
             <Image src={order?.item?.image} />
             <Content>
-              <h3>
+              <h3 style={{ marginBottom: 4 }}>
                 {order?.item?.name}{' '}
                 {order?.details?.teaId &&
                   `- (${
