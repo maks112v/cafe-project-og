@@ -75,7 +75,9 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
     <>
       <Seo titles={[doc?.name, 'Order']} />
       <Container>
-        <h1>New Order</h1>
+        <h1>
+          <span style={{ color: '#2563EB' }}>New</span> Order
+        </h1>
         <p>Click on a drink to place an order.</p>
         <div style={{ height: 10 }} />
         <Formik
