@@ -31,7 +31,7 @@ export default function OrderItem({
   name,
   image = '/items/empty.svg',
   description,
-  hostFavorite,
+  isPopular,
   ...rest
 }) {
   return (
@@ -43,7 +43,7 @@ export default function OrderItem({
         <h4>{name}</h4>
         <p>{description}</p>
       </div>
-      {hostFavorite && (
+      {isPopular && (
         <div
           style={{
             position: 'absolute',
@@ -54,7 +54,7 @@ export default function OrderItem({
             color: 'white',
           }}
         >
-          Host Favorite
+          Popular
         </div>
       )}
     </ItemCard>

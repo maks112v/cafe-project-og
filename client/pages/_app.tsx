@@ -7,7 +7,6 @@ import React from 'react';
 import { AuthWrapper } from '../hooks/auth';
 import { StoreWrapper } from '../hooks/store';
 import { breakpoints } from '../styles/breakingpoints';
-import { color_coffee } from '../styles/colors';
 import '../styles/normalize.css';
 import '../styles/nprogress.css';
 
@@ -20,7 +19,7 @@ const Footer = styled.div({
   justifyContent: 'center',
   padding: `10px 20px`,
   small: {
-    color: color_coffee,
+    color: '#6B7280',
   },
 });
 
@@ -106,30 +105,20 @@ function CustomApp({ Component, pageProps }) {
           />
 
           <Component {...pageProps} />
-          {/* <Footer>
-          <small>
-            Enjoy open source? We do also check it out{' '}
-            <a href='https://github.com/maks112v/cafe-project' target='_blank'>
-              here
-            </a>
-            .
-          </small>
-        </Footer> */}
+          <Footer>
+            <small>
+              Enjoy open source? We do also check it out{' '}
+              <a
+                href='https://github.com/maks112v/cafe-project'
+                target='_blank'
+              >
+                here
+              </a>
+              .
+            </small>
+          </Footer>
         </StoreWrapper>
       </AuthWrapper>
-      <div style={{ position: 'relative' }}>
-        <img
-          src='tower.svg'
-          style={{
-            zIndex: -1,
-            position: 'absolute',
-            bottom: 0,
-            right: 10,
-            height: 500,
-            color: '#F9FAFB',
-          }}
-        />
-      </div>
     </>
   );
 }

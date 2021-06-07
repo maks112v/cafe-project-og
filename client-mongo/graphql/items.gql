@@ -1,9 +1,0 @@
-query GET_ITEMS {
-  items(sortBy: NAME_ASC) {
-    name
-    desc
-    _id
-    createdAt
-    type
-  }
-}

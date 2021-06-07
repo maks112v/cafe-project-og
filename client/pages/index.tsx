@@ -22,11 +22,9 @@ function Home({ items }) {
       <Container>
         {/* <Orders /> */}
         <h1>
-          Girls Night Live <span style={{ color: '#2563EB' }}>Cafe</span>
+          <span style={{ color: '#2563EB' }}>Cafe</span> Project
         </h1>
-        <p>
-          GNL with your host <strong>Rossoshanskiy</strong>
-        </p>
+        <p>Order a favorite drink or try something new!</p>
         <CardWrapper>
           {selectableDrinks
             ?.filter((data) => data?.available)

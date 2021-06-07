@@ -21,30 +21,6 @@ export const useStore = () => useContext(storeContext);
 
 const MenuMethods = () => {
   const selectableDrinks = {
-    kr29rjgsqx: {
-      id: 'kr29rjgsqx',
-      name: 'Espresso',
-      image: '/items/expresso.svg',
-      available: false,
-      description:
-        'A strong, concentrated coffee made by forcing pressurized water through finely ground coffee beans. Meant to be taken like a shot.',
-    },
-    borwbinnx5: {
-      id: 'borwbinnx5',
-      name: 'Cortado',
-      image: '/items/cortado.svg',
-      available: false,
-      description:
-        'A double shot espresso with a drizzle of warm milk to soften the taste and reduce the degree of bitterness of the coffee.',
-    },
-    pv6zms5cyy: {
-      id: 'pv6zms5cyy',
-      name: 'Americano',
-      image: '/items/americano.svg',
-      available: false,
-      description:
-        'A double shot of espresso added to a cup of hot water. Many like to drink this as they would a regular brewed coffee with milk and sugar.',
-    },
     uvx8oar0jh: {
       id: 'uvx8oar0jh',
       name: 'Frappuccino',
@@ -53,29 +29,53 @@ const MenuMethods = () => {
       description:
         'A tasty frappuccino with whipped cream on top and a topping of your choice.',
     },
+    kr29rjgsqx: {
+      id: 'kr29rjgsqx',
+      name: 'Espresso',
+      image: '/items/expresso.svg',
+      available: true,
+      description:
+        'A strong, concentrated coffee made by forcing pressurized water through finely ground coffee beans. Meant to be taken like a shot.',
+    },
+    borwbinnx5: {
+      id: 'borwbinnx5',
+      name: 'Cortado',
+      image: '/items/cortado.svg',
+      available: true,
+      description:
+        'A double shot espresso with a drizzle of warm milk to soften the taste and reduce the degree of bitterness of the coffee.',
+    },
+    pv6zms5cyy: {
+      id: 'pv6zms5cyy',
+      name: 'Americano',
+      image: '/items/americano.svg',
+      available: true,
+      description:
+        'A double shot of espresso added to a cup of hot water. Many like to drink this as they would a regular brewed coffee with milk and sugar.',
+    },
+
     aohv0owt7h: {
       id: 'aohv0owt7h',
       name: 'Latte',
       image: '/items/latte.svg',
-      hostFavorite: true,
       available: true,
       description:
         'A single shot of espresso with steamed milk. Can be ordered with some delicious flavoring.',
     },
-    e6yo7xbzla: {
-      id: 'e6yo7xbzla',
-      name: 'Pink Drink',
-      available: true,
-      image: '/items/pink-drink.svg',
-      description:
-        'Strawberry, raspberry, dragonfruit & coconut milk. Served over ice.',
-    },
+
     fq6my5ts27: {
       id: 'fq6my5ts27',
       name: 'Iced Latte',
       image: '/items/iced-latte.svg',
-      available: false,
+      available: true,
       description: 'Double shot espresso with milk served over ice.',
+    },
+    e3yqr9fn31: {
+      id: 'e3yqr9fn31',
+      name: 'Tea',
+      image: '/items/tea.svg',
+      available: true,
+      description: 'It really is a serious problem if tea can’t fix it.',
     },
     q5xv91wql3: {
       id: 'q5xv91wql3',
@@ -85,13 +85,29 @@ const MenuMethods = () => {
       description:
         'Cold brew is brewed by soaking coffee beans cold or room-temperature water for 12 hours minimum to extract sugars, oils and caffeine.',
     },
-    e3yqr9fn31: {
-      id: 'e3yqr9fn31',
-      name: 'Tea',
-      image: '/items/tea.svg',
+    e6yo7xbzla: {
+      id: 'e6yo7xbzla',
+      name: 'Pink Drink',
+      available: true,
+      isPopular: true,
+      image: '/items/pink-drink.svg',
+      description:
+        'Strawberry, raspberry, dragonfruit & coconut milk. Served over ice.',
+    },
+    dont1drink: {
+      id: 'dont1drink',
+      name: 'Matcha',
+      available: true,
+      image: '/items/matcha.svg',
+      description: 'Plain or sweetened with honey or white chocolate.',
+    },
+    yynqwg8a4k: {
+      id: 'yynqwg8a4k',
+      name: 'Chai',
+      image: '/items/chai.svg',
       available: true,
       description:
-        'It really is a serious problem if tea can’t fix it... Maybe Rossoshanskiy Can!',
+        'Chai tea concentrate with milk. Topped with cinnamon and nutmeg',
     },
     piuy88zw7n: {
       id: 'piuy88zw7n',

@@ -101,7 +101,7 @@ const OrderItemPage: FunctionComponent<Props> = ({ children, ...rest }) => {
                 ))}
               </InputField>
             )}
-            {!['e3yqr9fn31', 'uvx8oar0jh']?.includes(id) && (
+            {!['e3yqr9fn31', 'uvx8oar0jh', 'dont1drink']?.includes(id) && (
               <div>
                 <InputField
                   name='details.syrupId'
