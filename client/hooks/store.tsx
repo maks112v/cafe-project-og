@@ -25,7 +25,7 @@ const MenuMethods = () => {
       id: 'uvx8oar0jh',
       name: 'Frappuccino',
       image: '/items/frappuccino.svg',
-      available: true,
+      available: false,
       description:
         'A tasty frappuccino with whipped cream on top and a topping of your choice.',
     },
@@ -59,6 +59,7 @@ const MenuMethods = () => {
       name: 'Latte',
       image: '/items/latte.svg',
       available: true,
+      isPopular: true,
       description:
         'A single shot of espresso with steamed milk. Can be ordered with some delicious flavoring.',
     },
@@ -88,7 +89,7 @@ const MenuMethods = () => {
     e6yo7xbzla: {
       id: 'e6yo7xbzla',
       name: 'Pink Drink',
-      available: true,
+      available: false,
       isPopular: true,
       image: '/items/pink-drink.svg',
       description:
