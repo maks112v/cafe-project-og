@@ -1,8 +1,8 @@
 const functions = require('firebase-functions');
 const twilio = require('twilio')(
-  'AC32dfeef228900b7e293fce8e0bcc3287',
-  '33aeeb182974796b5f52895dddee3303'
-);
+  'TWILIO_ACCOUNT_SID',
+  'TWILIO_AUTH_TOKEN'
+); // Deprecated feature so keys are removed 
 const admin = require('firebase-admin');
 
 admin.initializeApp();
